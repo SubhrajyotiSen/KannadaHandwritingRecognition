@@ -6,7 +6,7 @@ from skimage.util import invert
 from scipy.misc import toimage
 
 # Read and store image
-image = cv2.imread(r'images\khu.png')
+image = cv2.imread(r'images\khu.png',0)
 # The given image should be in Grayscale or Binary format
 # skeletonize_3d assumes White as foreground and black as background.
 # Hence we invert the image (This can be removed based on what form of input images we decide to provide at later stage)
