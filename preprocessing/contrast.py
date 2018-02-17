@@ -1,3 +1,4 @@
+import os
 import sys	
 import numpy
 import scipy
@@ -6,7 +7,11 @@ from PIL import Image
 
 
 # TODO: loop over all images
-filename = sys.argv[1]
+# get name of image file
+image = sys.argv[1]
+
+# get the file name without extension
+filename = filename = os.path.splitext(image)[0]
 
 # main formula: http://i.imgur.com/wA7gEks.png
 
@@ -16,7 +21,7 @@ lmda = 10
 epsilon = 0.0001
 
 # open the image as an array of pixels
-X = numpy.array(Image.open(filename))
+X = numpy.array(Image.open(image))
 
 # avrage value of pixel in original image
 X_average = numpy.mean(X)
