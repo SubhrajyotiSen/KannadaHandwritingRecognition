@@ -8,25 +8,40 @@ from PIL import Image, ImageChops, ImageOps 	# The Python Imaging Library (PIL) 
 from skimage import color 	# scikit-image is a collection of algorithms for image processing.
 from skimage.morphology import skeletonize_3d 	
 from skimage.util import invert
+from joblib import Parallel, delayed 	# Lightweight pipelining: using Python functions as pipeline jobs.
 import cv2 	# Open CV is uesd image processing
 from scipy.misc import toimage # It provides routines for numerical integration and optimization.
 
-start_time = time.time()	# Used to start time record 
+start_time = time.time()	# Used to start time record
+count=0 					# Count for no.of files
 rootdir = sys.argv[1]		# Take aregument from command line 
 ori=os.getcwd()				# Save current directory for looping stage
 folder = "Preprocessed_" + sys.argv[1]	# Creating new folder to save the preprocessed images 
 newfolder = os.path.join(os.getcwd(),folder)	# Creating the path to the new folder
 if not os.path.exists(newfolder):	# Check if directory already exists
 	os.makedirs(newfolder)	# Making new directory
-# This function is used to trim the white edges of the original image
+# This function is used to crop and thin the image file
 # We pass th 'im' file as a parameter
-def trim(im):
-	bg = Image.new(im.mode, im.size, im.getpixel((0,0))) # This is used to save a background and save the corner pixel 
-	diff = ImageChops.difference(im, bg)				 # Which is specified by getpixel(0,0)
+def ct(im):
+	img = Image.open(im)
+	bg = Image.new(img.mode, img.size, img.getpixel((0,0))) # This is used to save a background and save the corner pixel 
+	diff = ImageChops.difference(img, bg)				 # Which is specified by getpixel(0,0)
 	diff = ImageChops.add(diff, diff, 2.0, -100)		 # Diff holds the difference with main 'im' and 'bg'
 	bbox = diff.getbbox()		# The difference box is generated
-	if bbox:					# If the box existes it is returned 
-		return im.crop(bbox)
+	if bbox:					# If the box existes it is saved 
+		img = img.crop(bbox)
+		img.save(im)
+	image = cv2.imread(im,0)
+	# The given image should be in Grayscale or Binary format
+	# skeletonize_3d assumes White as foreground and black as background.
+	# Hence we invert the image (This can be removed based on what form of input images we decide to provide at later stage)
+	image = color.rgb2gray(invert(image))
+	# skeletonize_3d is mainly used for 3D images but can be used for 2D also. 
+	# Advantage - Removes spurs and provides better output
+	skeleton = skeletonize_3d(image)
+	# Saving output image
+	image = toimage(skeleton) 	# Takes a numpy array and returns a PIL image
+	image.save(im)
 # The loop below is used to iterate through each folder and subfolder
 # It generats a tupel root,dirs,files
 # Root is the current directory
@@ -58,26 +73,17 @@ for root,dirs,files in os.walk(rootdir,topdown=False):
 				else:
 					shutil.copy(src_file, dst_file)	# This makes usre we only move those files and overwrite if it existes 
 		os.chdir(subfolder)		# Now we move into the subfolder 
-		# The loop below is used to iterate through each file that ends with '.png' later we can add '.PNG'
-		for n in glob.glob('*.png'):	
-			im = Image.open(n)  # Opening image specified by 'n' using the PIL form 
-			im = trim(im)		# Passing the image
-			# The given image should be in Grayscale or Binary format
-			# skeletonize_3d assumes White as foreground and black as background.
-			# Hence we invert the image (This can be removed based on what form of input images we decide to provide at later stage)
-			im = ImageOps.invert(im) 	
-			im.save(n)	# We rename and save the image in the same folder		
-			# Read and store image
-		# The loop below is used to iterate through each file that ends with '.png' later we can add '.PNG'
-		for n in glob.glob('*.png'):
-			image = cv2.imread(n,0)
-			# skeletonize_3d is mainly used for 3D images but can be used for 2D also. 
-			# Advantage - Removes spurs and provides better output
-			skeleton = skeletonize_3d(image)
-			# Saving output image
-			im = toimage(skeleton) 	# Takes a numpy array and returns a PIL image
-			im.save(n)
+		flist=glob.glob('*.png')	# Creats a list of files that end with '.png' later we can add '.PNG'
+		count=count+len(flist)	# Count number of files being processed
+		# The function below is used to parallelize the image processing
+		# n_jobs is the number of cores to use (-1 is all cores)
+		# Delayed is used to run the function 'ct' with aregument 'n' from list 'flist' 
+		Parallel(n_jobs=-1)(delayed(ct)(n) for n in flist)
 		print("done with ",name)	# Once done with 
 		os.chdir(ori)	# At the end of the loop we move back to original directory so that looping can start again
 end_time = time.time()	# Used to stop time record
-print("Time=", end_time - start_time)	# prints total time taken to process the image data
+seconds=end_time - start_time
+m, s = divmod(seconds, 60)
+h, m = divmod(m, 60)
+print ("Total time: %dH:%02dM:%02dS" % (h, m, s))
+print ("Total number of images processed:",count) 
