@@ -39,6 +39,6 @@ for i, ctr in enumerate(sorted_ctrs):
 	# Getting ROI
 	roi = image[y:y+h, x:x+w]
 
-	# save each segmeneted image
-	cv2.imwrite(os.path.join(newfolder, 'segment' + str(i) + '.png'), roi)
+	# save each segmented image
+	cv2.imwrite(os.path.join(newfolder, 'Line' + str(i) + '.png'), roi)
 
