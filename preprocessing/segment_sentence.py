@@ -30,7 +30,7 @@ im2,ctrs, hier = cv2.findContours(img_dilation.copy(), cv2.RETR_EXTERNAL, cv2.CH
 
 # sort contours
 sorted_ctrs = sorted(ctrs, key=lambda ctr: cv2.boundingRect(ctr)[0])
-sorted_ctrs = sorted_ctrs[1:]
+sorted_ctrs = sorted_ctrs[0:]
 
 for i, ctr in enumerate(sorted_ctrs):
 	# Get bounding box
