@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 
 # TODO: loop over all images
+j=0
 imageName = sys.argv[1]
 fileName = filename = os.path.splitext(imageName)[0]
 
@@ -35,10 +36,14 @@ sorted_ctrs = sorted_ctrs[0:]
 for i, ctr in enumerate(sorted_ctrs):
 	# Get bounding box
 	x, y, w, h = cv2.boundingRect(ctr)
-
+	
+	# Ignore small contours - Considered to be unwanted elements
+	if ((w*h)<5000):
+		continue
+	
 	# Getting ROI
 	roi = image[y:y+h, x:x+w]
 
 	# save each segmented image
-	cv2.imwrite(os.path.join(newfolder, 'Line' + str(i) + '.png'), roi)
-
+	cv2.imwrite(os.path.join(newfolder, 'Line' + str(j) + '.png'), roi)
+	j+=1
