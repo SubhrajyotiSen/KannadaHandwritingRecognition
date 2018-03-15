@@ -84,8 +84,8 @@ def removeSlant(thin_image,theta,row,col):
 	# cv2.waitKey(0)
 	
 
-
-image = cv2.imread(r'images\skeletonised.png') #Image path
+imageName = sys.argv[1]
+image = cv2.imread(imageName) #Image path
 image = color.rgb2gray(image)
 # Make copy of the image so that original image is not lost
 thin_image = image.copy()
