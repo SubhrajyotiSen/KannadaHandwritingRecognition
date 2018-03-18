@@ -72,21 +72,43 @@ def rtr(im):
 def ht(im):
 	img = Image.open(im)
 	new_img = img.resize((64,128))
+	bg = Image.new(new_img.mode, new_img.size, new_img.getpixel((0,0)))
+	diff = ImageChops.difference(new_img, bg)				 
+	diff = ImageChops.add(diff, diff, 2.0, -100)		 
+	bbox = diff.getbbox()		
+	if bbox:
+		new_img = new_img.crop(bbox)
 	new_img.save("aspect_1_"+im)
 	new_img = img.resize((128,64))
+	bg = Image.new(new_img.mode, new_img.size, new_img.getpixel((0,0)))
+	diff = ImageChops.difference(new_img, bg)				 
+	diff = ImageChops.add(diff, diff, 2.0, -100)		 
+	bbox = diff.getbbox()		
+	if bbox:
+		new_img = new_img.crop(bbox)
 	new_img.save("aspect_2_"+im)
 
 for root,dirs,files in os.walk(rootdir,topdown=False):
 	for name in dirs:
+		if not os.path.isdir(os.path.join(rootdir, name)):	# Checks if the path is a folder
+			continue
+		if 'Done' in name:	# Prevents reprocessing of old folders
+			continue
 		dir3 = os.path.join(root,name) 
 		os.chdir(os.path.abspath(dir3))
 		flist = glob.glob('*.jpg')
 		Parallel(n_jobs=-1)(delayed(rtl)(n) for n in flist)
 		Parallel(n_jobs=-1)(delayed(rtr)(n) for n in flist)
+		print("Done rotating ",name)
 		os.chdir(ori)
 
 for root,dirs,files in os.walk(rootdir,topdown=False):
 	for name in dirs:
+		if not os.path.isdir(os.path.join(rootdir, name)):	# Checks if the path is a folder
+			continue
+		if 'Done' in name:	# Prevents reprocessing of old folders	
+			continue
+		path=os.path.abspath(rootdir)
 		dir3 = os.path.join(root,name) 
 		os.chdir(os.path.abspath(dir3))
 		flist = glob.glob('*.jpg')
@@ -94,12 +116,22 @@ for root,dirs,files in os.walk(rootdir,topdown=False):
 		Parallel(n_jobs = -1)(delayed(ht)(n) for n in flist)
 		flist2 = glob.glob('*.jpg')
 		count += len(flist2)
-		print ("number of images in ",name,": ",len(flist2))
+		print ("number of images in",name,":",len(flist2))
+		os.chdir(os.path.abspath(path))
+		if 'Done' in name:
+			continue
+		os.rename( path +'/'+ name, path +'/'+ name + "_Done" )	# Renames processed folder with "_Done"
 		os.chdir(ori)
 
 end_time = time.time()	# Used to stop time record
 seconds=end_time - start_time
 m, s = divmod(seconds, 60)
 h, m = divmod(m, 60)
-print ("Total time: %dH:%02dM:%02dS" % (h, m, s))
-print("total number of images created: ",count)
+
+if count==0:
+	print("No new folders to process")
+else:
+	print("=============================================")
+	print("total number of images created:",count)
+	print ("Total time: %dH:%02dM:%02dS" % (h, m, s))
+
