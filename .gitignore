@@ -69,3 +69,7 @@
 
 # End of https://www.gitignore.io/api/images
 
+
+# PyCache
+__pycache__/
+*/__pycache__/
