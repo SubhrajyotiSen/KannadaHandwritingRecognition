@@ -27,7 +27,7 @@ for root,dirs,files in os.walk(rootdir,topdown=False):
 
 		flist=glob.glob('*.jpg')
 		flist.sort(key=lambda f: int(''.join(filter(str.isdigit, f))))
-		flist=flist[:100]
+		flist=flist[:len(no_in_line)]
 		lines = Image.new("L", (52*int(no_in_line),52))
 
 		x_offset = 0
