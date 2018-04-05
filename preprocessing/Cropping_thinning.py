@@ -39,7 +39,7 @@ start_time = time.time()	# Used to start time record
 count=0 					# Count for no.of files
 rootdir = sys.argv[1]		# Take aregument from command line
 ori=os.getcwd()				# Save current directory for looping stage
-folder = "Preprocessed Images"     # Creating new folder to save the preprocessed images
+folder = "Preprocessed_Images"     # Creating new folder to save the preprocessed images
 newfolder = os.path.join(os.getcwd(),folder)	# Creating the path to the new folder
 if not os.path.exists(newfolder):	# Check if directory already exists
 		os.makedirs(newfolder)	# Making new directory
