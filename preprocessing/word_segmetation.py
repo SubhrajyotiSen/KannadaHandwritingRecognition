@@ -2,11 +2,12 @@ import os
 import sys	
 import cv2
 import numpy as np
+import ntpath
 from PIL import Image
 
 # TODO: loop over all images
 imageName = sys.argv[1]
-fileName = filename = os.path.splitext(imageName)[0]
+fileName = filename = os.path.splitext(ntpath.basename(imageName))[0]
 
 folder = "Segmented_" + filename	# Creating new folder to save the preprocessed images 
 newfolder = os.path.join(os.getcwd(),folder) 

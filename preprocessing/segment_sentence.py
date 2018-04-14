@@ -1,17 +1,18 @@
 import os
-import sys	
+import sys  
 import cv2
 import numpy as np
+import ntpath
 
 # TODO: loop over all images
 j=0
 imageName = sys.argv[1]
-fileName = filename = os.path.splitext(imageName)[0]
+fileName = filename = os.path.splitext(ntpath.basename(imageName))[0]
 
-folder = "Segmented_" + filename	# Creating new folder to save the preprocessed images 
+folder = "Segmented_" + filename    # Creating new folder to save the preprocessed images 
 newfolder = os.path.join(os.getcwd(),folder) 
 if not os.path.exists(newfolder): # Check if subfolder already exists
-	os.makedirs(newfolder)
+    os.makedirs(newfolder)
 
 # open image using openCV
 image = cv2.imread(imageName)
@@ -35,16 +36,17 @@ sorted_ctrs = sorted(ctrs, key=lambda ctr: cv2.boundingRect(ctr)[1])
 sorted_ctrs = sorted_ctrs[0:]
 
 for i, ctr in enumerate(sorted_ctrs):
-	# Get bounding box
-	x, y, w, h = cv2.boundingRect(ctr)
-	
-	# Ignore small contours - Considered to be unwanted elements
-	if ((w*h)<5000):
-		continue
-	
-	# Getting ROI
-	roi = thresh2[y:y+h, x:x+w]
+    # Get bounding box
+    x, y, w, h = cv2.boundingRect(ctr)
+    
+    # Ignore small contours - Considered to be unwanted elements
+    if ((w*h)<5000):
+        continue
+    
+    # Getting ROI
+    roi = thresh2[y:y+h, x:x+w]
 
-	# save each segmented image
-	cv2.imwrite(os.path.join(newfolder, 'Line' + str(j) + '.png'), roi)
-	j+=1
+    # save each segmented image
+    cv2.imwrite(os.path.join(newfolder, 'Line' + str(j) + '.png'), roi)
+    print(os.path.join(newfolder, 'Line' + str(j) + '.png'))
+    j+=1

@@ -2,6 +2,7 @@ import cv2
 import numpy as np
 import os
 import sys
+import ntpath
 
 """ To sort the contours in 4 ways
 		left-to-right
@@ -37,7 +38,7 @@ if __name__ == '__main__':
 	imageName = sys.argv[1]
 	j=0
 	# Creating new folder to save the preprocessed images
-	fileName = filename = os.path.splitext(imageName)[0]
+	fileName = filename = os.path.splitext(ntpath.basename(imageName))[0]
 	folder = "Segmented_Char_" + filename	
 	newfolder = os.path.join(os.getcwd(),folder) 
 	if not os.path.exists(newfolder): # Check if subfolder already exists
