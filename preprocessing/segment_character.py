@@ -33,39 +33,29 @@ def sort_contours(cnts, method="left-to-right"):
 	# return the list of sorted contours and bounding boxes
 	return (cnts, boundingBoxes)
 
-if __name__ == '__main__':
-	# TODO: loop over all images
-	imageName = sys.argv[1]
-	j=0
-	# Creating new folder to save the preprocessed images
-	fileName = filename = os.path.splitext(ntpath.basename(imageName))[0]
-	folder = "Segmented_Char_" + filename	
-	newfolder = os.path.join(os.getcwd(),folder) 
-	if not os.path.exists(newfolder): # Check if subfolder already exists
-		os.makedirs(newfolder)
+def segment_character(image):
 
-	image = cv2.imread(imageName)
-	# convert to grayscale
-	gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
-	ret,thresh = cv2.threshold(gray,127,255,cv2.THRESH_BINARY_INV)
-	ret,thresh2 = cv2.threshold(gray,127,255,cv2.THRESH_BINARY)
-	# debug1=Image.fromarray(thresh,'L')
-	# debug1.show()
+	ret,thresh = cv2.threshold(image,127,255,cv2.THRESH_BINARY_INV)
+	ret,thresh2 = cv2.threshold(image,127,255,cv2.THRESH_BINARY)
+	im2,ctrs, hier = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
-	kernel = np.ones((5,5), np.uint8)
-	img_dilation = cv2.dilate(thresh, kernel, iterations=1)
-	im2,cnts, hier = cv2.findContours(img_dilation.copy(), cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+	(ctrs, boundingBoxes) = sort_contours(ctrs, method="left-to-right")
 
-	(cnts, boundingBoxes) = sort_contours(cnts, method="left-to-right")
+	characters = []
 
 	# For each contour, find the bounding rectangle and draw it
-	for i,cnt in enumerate(cnts):
+	for i,cnt in enumerate(ctrs):
 		x,y,w,h = cv2.boundingRect(cnt)
+
 		# Ignore small contours - Considered to be unwanted elements
 		if ((w*h)<100):
 			continue
-		print(w*h)
+		
 		# Find the segmented character and store
 		roi = thresh2[y:y+h, x:x+w]
-		cv2.imwrite(os.path.join(newfolder, 'Letter' + str(j) + '.png'), roi)
-		j+=1
+
+		characters.append(roi)
+
+	return characters
+		
+
