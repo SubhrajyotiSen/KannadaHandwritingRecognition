@@ -1,0 +1,39 @@
+<html>
+<head>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+</head>
+<body>
+	<div class="container" >   
+	{% if latest_image_list %}
+	
+		<div class="row">
+			{% for image in latest_image_list %}
+			<div class="col s12 m4">
+				<div class="card">
+					<div class="card-image">
+				  		<img src="{{image.image_url.url}}" alt="{{image.image_url.url}}" height="200" width="200">
+					</div>
+
+					<div class="card-action">
+						<a href="details/{{image.image_id}}">View Image</a>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	{% else %}
+		<p>No images are available.</p>
+	{% endif %}
+<br>
+<center>
+	<a href = "upload/ "> Upload New Image? </a>
+</center>  	
+<br>						
+<br>
+</div>
+</body>
+</html>

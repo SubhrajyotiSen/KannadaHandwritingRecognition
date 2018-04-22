@@ -1,0 +1,21 @@
+Make sure you have python 3.x and Django version is 2.x for the app to work 
+
+1. Move into hwrkannada folder(cloned folder)
+
+2. Open terminal
+
+3. Execute - python manage.py makemigrations hwrapp
+The above checks if any fields were modified/added/deleted in models.py
+
+4. Execute - python manage.py migrate
+The above creates tables according to specification of fields provided in models.py 
+The result is stored in db.sqlite3
+
+5. Execute - python manage.py runserver
+
+6. Open "http://localhost:8000/hwrapp/"
+
+7. In order to enter the site as admin, 
+	Execute - python manage.py createsuperuser
+	Enter user name, email id and password
+	open "http://localhost:8000/admin/"

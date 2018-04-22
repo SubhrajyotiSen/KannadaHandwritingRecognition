@@ -1,0 +1,40 @@
+<html>
+<head>
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+
+
+</head>
+<body>
+<br>
+<br>
+<br>
+<div class = "container">
+	<div class = "row">
+			<div class = "col m2"></div>
+				<div class = "col s12 m8 grey lighten-2">
+						{% block content %}
+						<center>
+						<br>
+						<form method="post" enctype="multipart/form-data">
+
+						{% csrf_token %}
+						<br>	
+						<img id="image" src="{{myobject.image_url.url}}" alt="{{myobject.image_url.url}}" height="500" width="500"/>
+						<br>
+						<br>
+						<br>
+						<button type="submit">Perform Analysis</button>					
+					</form>
+					<br>
+					</center>
+					{% endblock %}
+				</div>
+			</div>
+	</div>		
+</div>
+</body>
+</html>        							
+
