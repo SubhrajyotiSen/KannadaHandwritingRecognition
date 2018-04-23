@@ -73,3 +73,7 @@
 # PyCache
 __pycache__/
 */__pycache__/
+
+
+# H5 files
+*.h5
