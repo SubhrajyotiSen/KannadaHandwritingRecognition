@@ -86,7 +86,7 @@ def removeSlant(thin_image,theta,row,col):
 
 imageName = sys.argv[1]
 image = cv2.imread(imageName) #Image path
-image = color.rgb2gray(image)
+
 # Make copy of the image so that original image is not lost
 thin_image = image.copy()
 row, col = thin_image.shape
