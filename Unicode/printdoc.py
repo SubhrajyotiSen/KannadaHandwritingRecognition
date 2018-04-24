@@ -31,11 +31,7 @@ def decode_word(word):
 			"""
 			vowel = chars[i].split('+')[1]
 			vowelflag = True
-			cons = chars[i].split('+')[0]
-			cons = cons.split('^')
-		else:
-			cons = chars[i].split('+')[0]
-			cons = chars[i].split('^')
+		cons = chars[i].split('+')[0].split('^')
 
 		# Start forming character with ottaksharas and vowels to print
 		mychar = ""
@@ -73,12 +69,10 @@ def decode_word(word):
 		# Check if vowels exist and add them
 		if(vowelflag):
 			mychar += myvowels[int(vowel)]
-		# print(mychar)
 		# Once char is obtained, form words
 		myword += mychar
 	# Spaces between words
 	myword +=" "
-	# print(myword)
 	return(myword)
 
 """
@@ -105,16 +99,11 @@ test_input = "LWC36C36^36WC49+9C48C43+5WC46^43+10C42+2LWC36+3C36^36WC49+9C48C43+
 
 def unicode_to_kn(input):
 	lines = input.split('L')
-	# print(lines)
-	line_count = 0
-	word_count = 0
 	for i in range(1,len(lines)):
 		myline = ""
 		print(lines[i])
-		line_count += 1
 		words = lines[i].split('W')
 		for j in range(1, len(words)):
-			# print(words[j])
 			myword = decode_word(words[j])
 			myline = myline + myword
 		print(myline)
