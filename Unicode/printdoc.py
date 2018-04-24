@@ -52,7 +52,28 @@ myletters = {1:u'\u0c85',
 49:u'\u0cb9',
 50:u'\u0cb3',
 51:u'\u0cde',
-52:u'\u0cb1'}
+52:u'\u0cb1',
+53:u'\u0cb0'}
+
+"""
+	SPECIAL CASE 1 OF Ra
+
+	53rd letter explanation - 
+
+	ra can appear as ottakshara in 2 forms (Analyse the pronounciation of below words)
+		1. Krama - Use normal method as used for rest of the consonant clusters formation (Try : 17^43C41)
+		2. Karma - Use below method (Try: 17C41+17)
+
+	myletters[53]:u'\u0cb0'
+
+	Needed for special case 1 of "Ra"
+
+	ra + halant + ka 
+	
+	Expected - ra is main character and ka is ottakshara
+	Actual output - ka is main character, ra is ottakshara(example - Karma)
+
+"""
 
 mynumbers = {0:u'\u0ce6',
 1:u'\u0ce7',
@@ -64,22 +85,6 @@ mynumbers = {0:u'\u0ce6',
 7:u'\u0ced',
 8:u'\u0cee',
 9:u'\u0cef'}
-
-"""
-	ra can appear as ottakshara in 2 forms (Analyse the pronounciation of below words)
-		1. Krama - Use normal method as used for rest of the consonant clusters formation (Try : 17^43C41)
-		2. Karma - Use below method (Try: 17C41+17)
-
-	myvowels[17]:u'\u0cb0'
-
-	Needed for special case 1 of "Ra"
-
-	ra + halant + ka 
-	
-	Expected - ra is main character and ka is ottakshara
-	Actual output - ka is main character, ra is ottakshara(example - Karma)
-
-"""
 
 myvowels = {
 1:u'\u0ccd',
@@ -98,9 +103,11 @@ myvowels = {
 14:u'\u0ccc',
 15:u'\u0c82',
 16:u'\u0c83',
-17:u'\u0cb0'}
+}
 
 """
+	SPECIAL CASE 2 OF Ra
+	
     zwj 
     Needed for special case 2 of "Ra" 
 
@@ -133,7 +140,7 @@ def decode_word(word):
 
 					main_character + ottakshara_1 + ottakshara_2 +...ottakshara_n + vowel
 				
-				Note: There can be any number of ottaksharas for a main_character but only one vowel
+				NOTE: There can be any number of ottaksharas for a main_character but only one vowel
 
 			"""
 			vowel = chars[i].split('+')[1]
@@ -143,12 +150,18 @@ def decode_word(word):
 		else:
 			cons = chars[i].split('+')[0]
 			cons = chars[i].split('^')
+
 		# Start forming character with ottaksharas and vowels to print
 		mychar = ""
 		for j in range(0,len(cons)):
+			# If cons[j] is 53, it is handled in previous iteration. So skip and continue.
+			if(int(cons[j])==53):
+				continue
+			
 			mychar += myletters[int(cons[j])]
+			      
 			""" 
-				If ra appears as a consonant, we need to preserve it so that it doesnt become a ottakshara.
+				If ra appears as a main consonant, we need to preserve it so that it doesnt become a ottakshara.
 				This is special case 2 that was discussed above.
 			"""
 			if(int(cons[j]) == 43):
@@ -156,30 +169,24 @@ def decode_word(word):
 			"""
 				We are at character level, first character is main character, rest are all ottaksharas. 
 				So add halant characters in order to form consonant clusters
-			"""        
+			"""
+			added = False # Bad way of handling this. Change it    
 			if(j!=len(cons)-1):
-				if(vowelflag==False):
-					mychar += myvowels[1]
-				else:
-					# In order to handle special case 1 of ra. Do not add halant to main character if vowel is 17
-					if(int(vowel)!=17):
-						mychar += myvowels[1]
+				# Check if next ottakshara to add is 53. If yes, this has to be handled as per special case 1 of ra
+				if(j+1!=len(cons)):
+					if(int(cons[j+1])==53):
+						newchar = myletters[43]                       
+						newchar = newchar + myvowels[1] 
+						newchar += mychar
+						mychar = newchar
+						added = True                        
+				# Add ottakshara normally
+			if(j!=len(cons)-1 and added == False):
+				mychar += myvowels[1]
+
+		# Check if vowels exist and add them
 		if(vowelflag):
-			"""
-				If vowel is 17, as mentioned before, we have not added halant to main character
-				To obtain required output, we use special case 1 formula
-
-									ra + halant + ka 
-
-			"""
-			if(int(vowel) == 17):    
-				newchar = myvowels[int(vowel)]
-				newchar = newchar + myvowels[1] 
-				newchar += mychar
-				mychar = newchar
-			# Else use normal method to concatenate consonant with vowels
-			else:
-				mychar += myvowels[int(vowel)]
+			mychar += myvowels[int(vowel)]
 		print(mychar)
 		# Once char is obtained, form words
 		myword += mychar
@@ -197,8 +204,16 @@ def decode_word(word):
 		+ - Seperate vowel
 """
 
-# Input - "36C36^36W49+9C48C43+5W46^43+10C42+2L36+3C36^36W49+9C48C43+5W46+5C40^43C24^42+13C32+3"
-input = sys.argv[1]
+"""
+Input - 
+"36C36^36W49+9C48C43+5W46^43+10C42+2L36+3C36^36W49+9C48C43+5W46+5C40^43C24^42+13C32+3"
+"43^36"
+"17^43C41"
+"17C41^53"
+"17C41^53+3" (In previous code, this input wouldnt have worked as 53 was 17th vowel. 
+Hence no other vowel could be added as one consonant can have only one vowel. It is fixed now)
+"""
+input = "36C36^36W49+9C48C43+5W46^43+10C42+2L36+3C36^36W49+9C48C43+5W46+5C40^43C24^42+13C32+3"
 lines = input.split('L')
 line_count = 0
 word_count = 0
