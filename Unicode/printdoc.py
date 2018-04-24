@@ -127,7 +127,7 @@ def decode_word(word):
 	myword = ""
 	# Split each word into characters with ottaksharas and kagunitas(vowels)
 	chars = word.split('C')
-	for i in range(0, len(chars)):
+	for i in range(1, len(chars)):
 		# Keep track of vowels 
 		vowelflag = False
 		vowel=""
@@ -161,10 +161,10 @@ def decode_word(word):
 			mychar += myletters[int(cons[j])]
 			      
 			""" 
-				If ra appears as a main consonant, we need to preserve it so that it doesnt become a ottakshara.
+				If ra appears as a main consonant(that is j = 0), we need to preserve it so that it doesnt become a ottakshara.
 				This is special case 2 that was discussed above.
 			"""
-			if(int(cons[j]) == 43):
+			if(int(cons[j]) == 43 and j==0):
 				mychar += myspecials[1]
 			"""
 				We are at character level, first character is main character, rest are all ottaksharas. 
@@ -187,12 +187,12 @@ def decode_word(word):
 		# Check if vowels exist and add them
 		if(vowelflag):
 			mychar += myvowels[int(vowel)]
-		print(mychar)
+		# print(mychar)
 		# Once char is obtained, form words
 		myword += mychar
 	# Spaces between words
 	myword +=" "
-	print(myword)
+	# print(myword)
 	return(myword)
 
 """
@@ -206,24 +206,26 @@ def decode_word(word):
 
 """
 Input - 
-"36C36^36W49+9C48C43+5W46^43+10C42+2L36+3C36^36W49+9C48C43+5W46+5C40^43C24^42+13C32+3"
-"43^36"
-"17^43C41"
-"17C41^53"
-"17C41^53+3" (In previous code, this input wouldnt have worked as 53 was 17th vowel. 
+"LWC36C36^36WC49+9C48C43+5WC46^43+10C42+2LWC36+3C36^36WC49+9C48C43+5WC46+5C40^43C24^42+13C32+3"
+"LWC43^36"
+"LWC17^43C41"
+"LWC17C41^53"
+"LWC17C41^53+3" (In previous code, this input wouldnt have worked as 53 was 17th vowel. 
 Hence no other vowel could be added as one consonant can have only one vowel. It is fixed now)
+"LWC40^43^42" (In previous code, 43 would be considered as second main character even if it had to be an ottakshara to 40. It was fixed)
 """
-input = "36C36^36W49+9C48C43+5W46^43+10C42+2L36+3C36^36W49+9C48C43+5W46+5C40^43C24^42+13C32+3"
+input = "LWC36C36^36WC49+9C48C43+5WC46^43+10C42+2LWC36+3C36^36WC49+9C48C43+5WC46+5C40^43C24^42+13C32+3"
 lines = input.split('L')
+# print(lines)
 line_count = 0
 word_count = 0
-for i in range(0,len(lines)):
+for i in range(1,len(lines)):
 	myline = ""
 	print(lines[i])
 	line_count += 1
 	words = lines[i].split('W')
-	for j in range(0, len(words)):
-		print(words[j])
+	for j in range(1, len(words)):
+		# print(words[j])
 		myword = decode_word(words[j])
 		myline = myline + myword
 	print(myline)
