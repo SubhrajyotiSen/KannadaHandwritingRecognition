@@ -1,13 +1,9 @@
 import sys
 import os
-import pickle as pkl
+import unicode_dict as ud
 
-# load the unicode dictionaries from the pickle file
-dictionaries = pkl.load( open("kannada_unicode.p", "rb"))
-myletters = dictionaries[0]
-mynumbers = dictionaries[1]
-myvowels = dictionaries[2]
-myspecials = dictionaries[3]
+# load the unicode dictionaries
+myletters, mynumbers, myvowels, myspecials = ud.get_dictionaries()
 
 def decode_word(word):
 	myword = ""

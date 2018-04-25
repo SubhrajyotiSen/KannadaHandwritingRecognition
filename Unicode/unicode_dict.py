@@ -1,4 +1,3 @@
-import pickle as pkl
 
 myletters = {1:u'\u0c85',
 2:u'\u0c86',
@@ -122,8 +121,5 @@ myspecials = {
 1:u'\u200d'  
 }
 
-# create a list of the dictonaries
-dictionaries = [myletters, mynumbers, myvowels, myspecials]
-
-# store the list of dictionaries as a single pickle file
-pkl.dump( dictionaries, open("kannada_unicode.p", "wb"))
+def get_dictionaries():
+	return myletters, mynumbers, myvowels, myspecials
