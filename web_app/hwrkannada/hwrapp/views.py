@@ -17,13 +17,15 @@ from .script import myprint
     happens in html file through <a href> tag
 """
 def index(request):
-    latest_image_list = DocumentImage.objects.order_by('-pub_date')[:6]
-    template = loader.get_template('hwrapp/index.html')
-    print(latest_image_list)
-    context = {
-        'latest_image_list': latest_image_list,
-    }
-    return HttpResponse(template.render(context, request))
+	if request.method == 'POST':
+		return redirect('/hwrapp/upload/')
+	latest_image_list = DocumentImage.objects.order_by('-pub_date')[:6]
+	template = loader.get_template('hwrapp/index.html')
+	print(latest_image_list)
+	context = {
+		'latest_image_list': latest_image_list,
+	}
+	return HttpResponse(template.render(context, request))
 
 """
     Shows the selected image.

@@ -30,8 +30,11 @@
 	{% endif %}
 <br>
 <center>
-	<a href = "upload/ "> Upload New Image? </a>
-</center>  	
+	<form method="POST">
+		{% csrf_token %}
+        <input type="submit" value="Upload"> 
+    </form>
+</center>
 <br>						
 <br>
 </div>
