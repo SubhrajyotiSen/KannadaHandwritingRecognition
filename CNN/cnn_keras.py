@@ -14,6 +14,7 @@ from keras.optimizers import SGD, Adagrad, Adadelta, RMSprop, Adam
 from keras.layers import LRN2D
 from keras import backend as K
 import matplotlib.pyplot as plt
+import load_images
 K.set_image_dim_ordering('tf')
 
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
@@ -86,6 +87,9 @@ def train():
 	# plt.show(hold=False)
 	plt.savefig('loss.png')
 	#model.save('cnn_model_keras2.h5')
+
+# create the required datatset type from the images
+load_images.create_pickle(directory)
 
 train()
 K.clear_session();
