@@ -37,7 +37,7 @@ for i in range(0,len(sentences)):
 			 		WW is word number in LL
 			 		CC is character number in WW
 			 """
-			imageName = str(i).zfill(2) + '-' + str(j).zfill(2) + '-' + str(k).zfill(2) + '.png'
+			imageName = str(i+1).zfill(2) + '-' + str(j+1).zfill(2) + '-' + str(k+1).zfill(2) + '.png'
 
 			# save image
 			cv2.imwrite(os.path.join(directory, imageName), characters[k])
