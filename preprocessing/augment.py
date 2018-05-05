@@ -15,20 +15,16 @@ import shutil
 import sys	
 
 def gaussianresize(image):
-	ori = os.getcwd()
-	path = ori +'/'+ image
-	img = io.imread(path)
+	img = io.imread(image)
 	img = np.invert(img)
 	img = filters.gaussian(img, 3,multichannel = True)
 	img = transform.resize(img, (52,52) ,mode='constant')
-	misc.imsave(path,img)
+	misc.imsave(image,img)
 
 def fixedsize(image):
-	ori = os.getcwd()
-	path = ori +'/'+ image
-	img = io.imread(path)
+	img = io.imread(image)
 	img = transform.resize(img, (208,208) ,mode='constant') 
-	misc.imsave(path,img)
+	misc.imsave(image,img)
 
 def size208(image):
 	desired_size = 208
@@ -85,8 +81,9 @@ def remove(image):
 	cv2.imwrite(image, thresh2)
 	
 def augment(rootdir):
-	os.chdir(os.path.abspath(rootdir))
-	flist = glob.glob('*.png')
+	flist = os.listdir(rootdir)
+	for i in range(0,len(flist)):
+		flist[i] = os.path.join(rootdir, flist[i])
 	Parallel(n_jobs = -1)(delayed(fixedsize)(n) for n in flist)			# Resizes all images to fixed size
 	Parallel(n_jobs = -1)(delayed(binerize)(n) for n in flist)			# Smoothing: first binerize to remove stray noise
 	Parallel(n_jobs = -1)(delayed(blur)(n) for n in flist)				# Smoothing: blur to smooth the pixelated edges
