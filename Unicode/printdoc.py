@@ -71,6 +71,8 @@ def decode_word(word):
 			# Check if vowels exist and add them
 			if(vowelflag):
 				mychar += myvowels[int(vowel)]
+				if(int(vowel) == 0):
+					mychar += myspecials[1]
 			# Once char is obtained, form words
 			myword += mychar
 	# Spaces between words
