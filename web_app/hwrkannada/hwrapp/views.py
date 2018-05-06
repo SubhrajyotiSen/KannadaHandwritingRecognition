@@ -9,7 +9,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import redirect
 import subprocess
-from .script import myprint
+from .printdoc import unicode_to_kn
 
 """
     Index page. Lists last 6 images that were added to database. 
@@ -50,8 +50,14 @@ def details(request, image_id):
     Result page. Needs to be updated to call our HWR module to analyse image
 """
 def results(request, image_id):
-    output = myprint()
-    return HttpResponse(output, content_type='text/plain')
+    template = loader.get_template('hwrapp/results.html')
+    output = unicode_to_kn("LWC35C35^35WC48+7C47C42+4WC45+4C39^42C23^41+11C31+2")
+    h=html.parser.HTMLParser()
+    h.unescape(output)
+    context = {
+        'output': output
+    }
+    return HttpResponse(template.render(context, request))
     
 """
     A form to upload image from system.
