@@ -89,9 +89,8 @@ def decode_word(word):
 		+ - Seperate vowel
 """
 
-test_input = ""
-
 def unicode_to_kn(input):
+	mydoc = []
 	lines = input.split('L')
 	for i in range(1,len(lines)):
 		myline = ""
@@ -100,4 +99,5 @@ def unicode_to_kn(input):
 		for j in range(1, len(words)):
 			myword = decode_word(words[j])
 			myline = myline + myword
-		print(myline)
+		mydoc.append(myline)
+	return mydoc
