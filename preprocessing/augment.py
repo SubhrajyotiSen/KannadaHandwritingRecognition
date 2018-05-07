@@ -88,7 +88,7 @@ def augment(rootdir):
 	Parallel(n_jobs = -1)(delayed(binerize)(n) for n in flist)			# Smoothing: first binerize to remove stray noise
 	Parallel(n_jobs = -1)(delayed(blur)(n) for n in flist)				# Smoothing: blur to smooth the pixelated edges
 	Parallel(n_jobs = -1)(delayed(binerize)(n) for n in flist)			# Smoothing: second binerize to get clear output
-	Parallel(n_jobs = -1)(delayed(remove)(n) for n in flist) 			# Retains the largest connected segment in the image
+	# Parallel(n_jobs = -1)(delayed(remove)(n) for n in flist) 			# Retains the largest connected segment in the image
 	Parallel(n_jobs = -1)(delayed(crop)(n) for n in flist)				# Croping since rotated images have added padding
 	Parallel(n_jobs = -1)(delayed(padding)(n) for n in flist)			# Adding fixed padding to all images
 	Parallel(n_jobs = -1)(delayed(size208)(n) for n in flist)			# Resizing to redues line cuts 

@@ -15,11 +15,12 @@ def pickle_images_labels(image_dir):
 	images = []
 	labels = []
 	for g_id in os.listdir(image_dir):
+		print(g_id)
 		for i in range(1200):
-			img = cv2.imread(image_dir+"/"+g_id+"/"+str(i+1)+".jpg", 0)
+			img = cv2.imread(image_dir+"/"+g_id+"/"+str(i+1)+".png", 0)
 			if np.any(img == None):
 				continue
-			images_labels.append((np.array(img, dtype=np.float32), int(g_id)))
+			images_labels.append((np.array(img, dtype=np.float32), g_id))
 	return images_labels
 
 def split_images_labels(images_labels):

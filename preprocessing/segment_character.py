@@ -35,13 +35,18 @@ def sort_contours(cnts, method="left-to-right"):
 
 def segment_character(image):
 
+	row, col = image.shape
+
 	ret,thresh = cv2.threshold(image,127,255,cv2.THRESH_BINARY_INV)
 	ret,thresh2 = cv2.threshold(image,127,255,cv2.THRESH_BINARY)
 	im2,ctrs, hier = cv2.findContours(thresh, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
 	(ctrs, boundingBoxes) = sort_contours(ctrs, method="left-to-right")
 
-	characters = []
+	characters = {}
+	ottaksharas = {}	
+
+	count = 0
 
 	# For each contour, find the bounding rectangle and draw it
 	for i,cnt in enumerate(ctrs):
@@ -54,8 +59,42 @@ def segment_character(image):
 		# Find the segmented character and store
 		roi = thresh2[y:y+h, x:x+w]
 
-		characters.append(roi)
+		# Analyse the contour bounding box x,y,h,w values to get better understanding
+		
+		""" 
+			Ottakshara is always present at bottom when compared with rest of the characters in the word.
+ 
+			Hence when we draw contours, the contours of ottaksharas begin at a height lesser than 
+			50% of the total height of the image. 
+			(We are making an assumption of 50% here which works well most of the time)
+ 
+			Based on above condition, store the roi accordingly into character and ottakshara dictionaries
+ 
+			character dictionary
+				char_contour_id: roi
+ 
+			ottakshara dictionary
+				parent_char_contour_id: roi
+			where parent_char_contour_id maps to char_contour_id of character dictionary
+ 
+			This works well in case only one ottakshara is present for each character.
+ 
+			TODO: 
+					Make method more efficient and make it possible to map multiple ottaksharas belonging to one parent character
+					How? 
+					Map ottakshara to character based on x values now.
+					compare ottakshara(x) and every character(x+h) values and map to closest character
 
-	return characters
+
+
+		"""
+		if(y>(row/2)):
+			cv2.rectangle(image,(x,y),( x + w, y + h ),(0,0,255),1)
+			ottaksharas[count-1] = roi
+		else:
+			characters[count] = roi
+			count = count + 1
+
+	return characters, ottaksharas
 		
 

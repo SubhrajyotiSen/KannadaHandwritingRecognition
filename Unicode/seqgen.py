@@ -1,6 +1,6 @@
 import sys
 import os
-import seqdictionary as sd
+import Unicode.seqdictionary as sd
 
 """
 	The input to the script is a dictionary of key value pair as mentioned below 
@@ -31,7 +31,6 @@ def addchar(seq, chars, otts):
 		vowel_len = len(str(initial_vowel))
 		seq = seq[0: len(seq)-vowel_len]
 		seq = seq + str(initial_vowel+1)
-		print(seq)
 		return seq
 
 	"""
@@ -52,7 +51,6 @@ def addchar(seq, chars, otts):
 	"""
 	if(chars == 559):
 		last_added = seq.rsplit('W')[-1]
-		print(last_added)
 		if(last_added and 'N' not in last_added and 'C' not in last_added):
 			seq = seq + ""
 		if(last_added and 'N' not in last_added):
@@ -69,7 +67,6 @@ def addchar(seq, chars, otts):
 	"""
 	if(chars == 568):
 		last_added = seq.rsplit('W')[-1]
-		print("last",last_added)
 		if(last_added and 'N' not in last_added and 'C' not in last_added):
 			seq = seq + ""
 		if(last_added and 'N' not in last_added):
@@ -110,7 +107,6 @@ def addchar(seq, chars, otts):
 		elif(ott == 9):
 			initial_vowel = int(myseq.rsplit('+')[-1])
 			vowel_len = len(str(initial_vowel))
-			print(vowel_len)
 			myseq = myseq[0: len(myseq)-vowel_len]
 			myseq = myseq + "9"
 			"""
@@ -134,7 +130,6 @@ def sequenceGen(input):
 	keys = input.keys()
 	# Sort all keys. Just to be sure they are in order of line, word and characters if they werent already
 	sorted_input = sorted(keys)
-	print(sorted_input)
 	i = 0
 	# Select first entry and check its line number. 
 	while(i < len(sorted_input)):
@@ -165,4 +160,4 @@ def sequenceGen(input):
 		i = j
 	print(sequence)
 
-sequenceGen(myname)
+#sequenceGen(myname)

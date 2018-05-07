@@ -20,7 +20,7 @@ K.set_image_dim_ordering('tf')
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 def get_image_size():
-	img = cv2.imread(os.path.join(directory, '1', '1.jpg'), 0)
+	img = cv2.imread(os.path.join(directory, '1', '1.png'), 0)
 	return img.shape
 
 def get_num_of_classes():
@@ -64,7 +64,7 @@ def train():
 	test_labels = np_utils.to_categorical(test_labels)
 
 	model, callbacks_list = cnn_model()
-	history = model.fit(train_images, train_labels, validation_data=(test_images, test_labels), epochs=100, batch_size=100, callbacks=callbacks_list)
+	history = model.fit(train_images, train_labels, validation_data=(test_images, test_labels), epochs=50, batch_size=100, callbacks=callbacks_list)
 	scores = model.evaluate(test_images, test_labels, verbose=0)
 	print("CNN Error: %.2f%%" % (100-scores[1]*100))
 	# summarize history for accuracy
