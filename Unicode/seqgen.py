@@ -11,8 +11,8 @@ import seqdictionary as sd
 	
 """
 
-
 kagunita_mapping = sd.get_dictionaries()
+
 
 def addchar(seq, chars, otts):
 
@@ -137,36 +137,32 @@ def sequenceGen(input):
 	print(sorted_input)
 	i = 0
 	# Select first entry and check its line number. 
-	while(i < len(sorted_input)-1):
+	while(i < len(sorted_input)):
 		line = sorted_input[i][:2]
 		sequence = sequence + "L"
 		j = i
 		# Access all words present in line i that is in consideration
-		while(j < len(sorted_input)-1):
-			if(sorted_input[j][:2] == line):
-				word = sorted_input[j][3:5]
-				sequence = sequence + "W"
-				k = j
-				# Access all characters present in word j that is in consideration
-				while(k < len(sorted_input)-1):
-					if(sorted_input[k][3:5] == word):
-						# Send each character along with its associated ottaksharas to append it to the sequence
-						mychars = input[sorted_input[k]]
-						myotts = []
-						for o in range(k+1, len(sorted_input)):
-							char = sorted_input[o][9]
-							if(int(char)!=0):
-								myotts.append(input[sorted_input[o]])
-							else:
-								break
-						print("mychars: ", mychars,"myotts: ",myotts)
-						sequence = addchar(sequence,mychars,myotts)
-						print(sequence)
-						k = o
+		while(j < len(sorted_input) and sorted_input[j][:2] == line):
+			word = sorted_input[j][3:5]
+			sequence = sequence + "W"
+			k = j
+			# Access all characters present in word j that is in consideration
+			while(k < len(sorted_input) and sorted_input[k][3:5] == word and sorted_input[k][:2] == line):
+				# Send each character along with its associated ottaksharas to append it to the sequence
+				mychars = input[sorted_input[k]]
+				myotts = []
+				for o in range(k+1, len(sorted_input)+1):
+					if(o==len(sorted_input)):
+						break
+					char = sorted_input[o][9]
+					if(int(char)!=0):
+						myotts.append(input[sorted_input[o]])
 					else:
-						break		
-				j = k
-			else:
-				break
+						break
+				sequence = addchar(sequence,mychars,myotts)
+				k = o
+			j = k
 		i = j
-	return(sequence)
+	print(sequence)
+
+sequenceGen(myname)
