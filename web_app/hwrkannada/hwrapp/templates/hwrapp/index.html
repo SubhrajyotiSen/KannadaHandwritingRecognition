@@ -13,11 +13,13 @@
 		<div class="row">
 			{% for image in latest_image_list %}
 			<div class="col s12 m4">
-				<div class="card">
-					<div class="card-image">
-				  		<img src="{{image.image_url.url}}" alt="{{image.image_url.url}}" height="200" width="200">
+				<div class="card" style="vertical-align: middle;">
+					<center>
+					<div class="card-image" style = 'width:200px; height: 200px;vertical-align: middle;'>
+				  		<img src="{{image.image_url.url}}" alt="{{image.image_url.url}}"  
+				  		style = 'width:100%;vertical-align: middle; '>
 					</div>
-
+					</center>
 					<div class="card-action">
 						<a href="details/{{image.image_id}}">View Image</a>
 					</div>

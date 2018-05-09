@@ -14,7 +14,7 @@
 <div class = "container">
 	<div class = "row">
 			<div class = "col m2"></div>
-				<div class = "col s12 m8 grey lighten-2">
+				<div class = "col s12 m8 grey lighten-2" style = 'height:'auto'>
 						{% block content %}
 						<center>
 						<br>
@@ -22,11 +22,12 @@
 
 						{% csrf_token %}
 						<br>	
-						<img id="image" src="{{myobject.image_url.url}}" alt="{{myobject.image_url.url}}" height="500" width="500"/>
-						<br>
-						<br>
-						<br>
-						<button type="submit">Perform Analysis</button>					
+							<div class = "col s12">
+								<img id="image" src="{{myobject.image_url.url}}" alt="{{myobject.image_url.url}}" style = 'width:100%'/>
+							</div>
+						<div>
+							<button type="submit" style="margin-top: 20px">Perform Analysis</button>			
+						</div>		
 					</form>
 					<br>
 					</center>
