@@ -9,7 +9,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import redirect
 import subprocess
-from .printdoc import unicode_to_kn
+import html
+# Import module here
 
 """
     Index page. Lists last 6 images that were added to database. 
@@ -51,7 +52,15 @@ def details(request, image_id):
 """
 def results(request, image_id):
     template = loader.get_template('hwrapp/results.html')
-    output = unicode_to_kn("LWC35C35^35WC48+7C47C42+4WC45+4C39^42C23^41+11C31+2")
+    myobject = DocumentImage.objects.get(pk=image_id)
+    # Image path of selected image which is to be sent to module for processing
+    image_path = myobject.image_url.url
+    """
+         Call script here. The output of module, that is the list returned by printdoc.py
+          is returned back and stored in output variable.
+    """
+    output = ["bleh me", "bleh you", "!!!"]
+    # The output is parsed and results page is rendered to show the output
     h=html.parser.HTMLParser()
     h.unescape(output)
     context = {

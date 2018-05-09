@@ -7,8 +7,14 @@
 body { font-family: "Noto Sans Kannada", sans-serif; font-size: 19.0px; line-height: 1.11em; }
 </style>
 
-<p>
+{% if output %}
+	{% for line in output %}
+	
+		{{line}}
+		<br>
 
-{{output}}
-
-</p>
+	{% endfor %}
+    
+{% else %}
+	<p>No Tasks are available.</p>
+{% endif %}
