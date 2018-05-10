@@ -1,27 +1,32 @@
+{% load static %}
 <html>
 <head>
 <!-- Compiled and minified CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'hwrapp/style.css' %}" />
 
 </head>
+
 <body>
-	<div class="container" >   
+	<center><h3><font color="white"> Recognition of Kannada Handwritten Documents</font></h3></center>
+	<div class="container z-depth-2 white" style = 'margin-bottom:50px' > 
+
 	{% if latest_image_list %}
 	
 		<div class="row">
 			{% for image in latest_image_list %}
-			<div class="col s12 m4">
-				<div class="card" style="vertical-align: middle;">
+			<div class="col s12 m4" style = 'margin-top:50px'>
+				<div class="card">
 					<center>
-					<div class="card-image" style = 'width:200px; height: 200px;vertical-align: middle;'>
+					<div class="card-image" style = 'width:200px; height: 200px;'>
 				  		<img src="{{image.image_url.url}}" alt="{{image.image_url.url}}"  
-				  		style = 'width:100%;vertical-align: middle; '>
+				  		style = 'width:100%;vertical-align: middle; height: 100%'>
 					</div>
 					</center>
-					<div class="card-action">
-						<a href="details/{{image.image_id}}">View Image</a>
+					<div class="card-action purple darken-4">
+						<center><a href="details/{{image.image_id}}">View Image</a></center>
 					</div>
 				</div>
 			</div>
@@ -40,5 +45,6 @@
 <br>						
 <br>
 </div>
+<br>
 </body>
 </html>

@@ -1,20 +1,48 @@
-<!-- Add result. Show graphs and other required output -->
+{% load static %}
 <!doctype html>
 <meta charset=utf-8>
 <title>Kannada test</title>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'hwrapp/style.css' %}" />
+
+
 <style>
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskannada.css);
 body { font-family: "Noto Sans Kannada", sans-serif; font-size: 19.0px; line-height: 1.11em; }
 </style>
 
-{% if output %}
-	{% for line in output %}
+<body>
+	<br>
+	<br>
+	<br>
+	<div class = "container z-depth-2 white" style = 'margin-bottom:50px' >
+		<div class = "row">
+			<center>
+			<div class = "col s12 m8 offset-m2 white" style = 'height:auto'>
+				<center>
+					<br>
+					<br>
+					{% if output %}
+						{% for line in output %}
 	
-		{{line}}
-		<br>
+							{{line}}
+							<br>
 
-	{% endfor %}
+						{% endfor %}
     
-{% else %}
-	<p>No Tasks are available.</p>
-{% endif %}
+					{% else %}
+						<p>No output</p>
+					{% endif %}
+					<br>
+				</center>
+					
+			</div>
+			</center>
+		</div>
+	</div>		
+</body> 
+</html>
