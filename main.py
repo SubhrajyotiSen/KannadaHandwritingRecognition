@@ -41,7 +41,7 @@ def analyze(image):
 	sequence = sequenceGen(predictions)
 
 	# generate Kannada text from the Unicode sequence
-	kannada_text = unicode_to_kn()
+	kannada_text = unicode_to_kn(sequence)
 
 	# return the Kannada text
 	return(kannada_text)
