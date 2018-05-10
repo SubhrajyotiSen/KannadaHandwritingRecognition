@@ -77,3 +77,10 @@ __pycache__/
 
 # H5 files
 *.h5
+
+CNN/test_images
+CNN/test_labels
+CNN/train_images
+CNN/train_labels
+
+web_app/hwrkannada/db.sqlite3
