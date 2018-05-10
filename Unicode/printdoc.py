@@ -1,6 +1,6 @@
 import sys
 import os
-import unicode_dict as ud
+import Unicode.unicode_dict as ud
 
 # load the unicode dictionaries
 myletters, mynumbers, myvowels, myspecials = ud.get_dictionaries()

@@ -1,6 +1,6 @@
 import sys
 import os
-import seqdictionary as sd
+import Unicode.seqdictionary as sd
 
 """
 	The input to the script is a dictionary of key value pair as mentioned below 
