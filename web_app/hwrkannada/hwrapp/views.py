@@ -11,6 +11,9 @@ from django.shortcuts import redirect
 import subprocess
 import html
 # Import module here
+import os
+import sys
+
 
 """
     Index page. Lists last 6 images that were added to database. 
@@ -59,7 +62,14 @@ def results(request, image_id):
          Call script here. The output of module, that is the list returned by printdoc.py
           is returned back and stored in output variable.
     """
-    output = ["bleh me", "bleh you", "!!!"]
+    image_path = os.path.join('web_app/hwrkannada/hwrkannada',image_path[1:len(image_path)])
+    
+    path = os.path.join(os.path.dirname(__file__), '../../../')
+    os.chdir(path)
+    sys.path.insert(0, os.getcwd())
+    from main import analyze
+
+    output = analyze(image_path)
     # The output is parsed and results page is rendered to show the output
     h=html.parser.HTMLParser()
     h.unescape(output)
