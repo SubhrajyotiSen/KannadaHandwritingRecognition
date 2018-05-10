@@ -94,7 +94,7 @@ def unicode_to_kn(input):
 	lines = input.split('L')
 	for i in range(1,len(lines)):
 		myline = ""
-		print(lines[i])
+		# print(lines[i])
 		words = lines[i].split('W')
 		for j in range(1, len(words)):
 			myword = decode_word(words[j])

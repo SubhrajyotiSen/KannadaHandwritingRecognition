@@ -158,13 +158,13 @@ def sequenceGen(input):
 	keys = input.keys()
 	# Sort all keys. Just to be sure they are in order of line, word and characters if they werent already
 	sorted_input = sorted(keys)
-	print(sorted_input)
+	# print(sorted_input)
 	i = 0
 	# Select first entry and check its line number. 
 	while(i < len(sorted_input)):
-		print(len(sorted_input))
+		# print(len(sorted_input))
 		line = sorted_input[i][:2]
-		print("i:", i, "line: ", line)
+		# print("i:", i, "line: ", line)
 		sequence = sequence + "L"
 		j = i
 		# Access all words present in line i that is in consideration
@@ -172,25 +172,25 @@ def sequenceGen(input):
 			word = sorted_input[j][3:5]
 			sequence = sequence + "W"
 			k = j
-			print("j:", j, "word: ", word)
+			# print("j:", j, "word: ", word)
 			# Access all characters present in word j that is in consideration
-			while(k < len(sorted_input) and sorted_input[k][3:5] == word):
+			while(k < len(sorted_input) and sorted_input[k][3:5] == word and sorted_input[k][:2] == line):
 				# Send each character along with its associated ottaksharas to append it to the sequence
 				mychars = input[sorted_input[k]]
 				myotts = []
-				print("k:", k, "char: ", mychars)
+				# print("k:", k, "char: ", mychars)
 				for o in range(k+1, len(sorted_input)+1):
 					if(o==len(sorted_input)):
 						break
 					char = sorted_input[o][9]
 					if(int(char)!=0):
 						myotts.append(input[sorted_input[o]])
-						print("o:", o, "otts ", myotts)
+						# print("o:", o, "otts ", myotts)
 					else:
 						break
-				print("mychars: ", mychars,"myotts: ",myotts)
+				# print("mychars: ", mychars,"myotts: ",myotts)
 				sequence = addchar(sequence,mychars,myotts, input[sorted_input[k-1]])
-				print(sequence)
+				# print(sequence)
 				k = o
 				#print("k:", k, ",o:", o)
 			j = k
