@@ -572,7 +572,8 @@ kagunita_mapping = {
 	565: "N6",
 	566: "N7",
 	567: "N8",
-	568: "N9"
+	568: "N9",
+	570: "51"
 }
 
 def get_dictionaries():

@@ -49,7 +49,8 @@ myletters = {
 47:u'\u0cb8',
 48:u'\u0cb9',
 49:u'\u0cb3',
-50:u'\u0cb0'}
+50:u'\u0cb0',
+51:u'\u0c83'}
 
 """
 	SPECIAL CASE 1 OF Ra
