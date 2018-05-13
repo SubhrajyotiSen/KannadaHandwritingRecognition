@@ -1,0 +1,49 @@
+{% load static %}
+<!doctype html>
+<meta charset=utf-8>
+<title>Kannada test</title>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="{% static 'hwrapp/materialize.min.css' %}">
+<!-- Compiled and minified JavaScript -->
+<script src="{% static 'hwrapp/materialize.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'hwrapp/style.css' %}" />
+<style>
+.img {
+    position: relative;
+    float: left;
+    width:  100px;
+    height: 100px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
+}
+</style>
+<script>
+    function redirect(){
+       window.location.href = "/hwrapp/results/charsegments/{{image_id}}"
+    }
+    setTimeout(redirect, 4000);
+</script>
+<body>
+<center>
+	<h3><font color="white">Word Segmentation</font>
+	</h3>
+</center>
+<div class = "container black" style = 'margin-top:50px'  >
+	<div class = "row">
+		<br>
+		{% if imagelist %}
+			{% for image in imagelist %}
+				<div class = "img col s5" style="margin-left: 20px">
+					<img src='/static/hwrapp/images/{{enddir}}/words/{{image}}' alt = '/static/hwrapp/images/{{enddir}}/words/{{image}}'/>
+					<br>
+				</div>
+			{% endfor %}
+		{% else %}
+			<p>No output</p>
+		{% endif %}
+	</div>
+</div>
+</body>
+</html>

@@ -5,11 +5,14 @@ import numpy as np
 import ntpath
 from PIL import Image
 
-def segment_word(image):
+def segment_word(image, directory, count):
 
+	word_dir = directory + "/words"
+	if not os.path.exists(word_dir):
+		os.makedirs(word_dir)
 	# get threshold for pixel values
 	ret,thresh = cv2.threshold(image,127,255,cv2.THRESH_BINARY_INV)
-
+	ret,thresh2 = cv2.threshold(image,127,255,cv2.THRESH_BINARY)
 	# dilate the image
 	kernel = np.ones((5,40), np.uint8)
 	img_dilation = cv2.dilate(thresh, kernel, iterations=1)
@@ -33,10 +36,11 @@ def segment_word(image):
 			continue
 		
 		# Getting ROI
-		roi = image[y:y+h, x:x+w]
+		roi = thresh2[y:y+h, x:x+w]
 
 		# add each segmented image to list
 		words.append(roi)
+		cv2.imwrite(os.path.join(word_dir,str(count).zfill(2) + "-" + str(i).zfill(2) + ".png"),roi)
 
 	return words
 		

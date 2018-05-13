@@ -4,7 +4,11 @@ import cv2
 import numpy as np
 import ntpath
 
-def segment_sentence(image):
+def segment_sentence(image, directory):
+
+    line_dir = directory + "/lines"
+    if not os.path.exists(line_dir):
+        os.makedirs(line_dir)
 
     # grayscale the image
     gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
@@ -40,5 +44,7 @@ def segment_sentence(image):
 
         # save each segmented image
         sentences.append(roi)
+
+        cv2.imwrite(os.path.join(line_dir,str(i).zfill(2) + ".png"),roi)
 
     return sentences

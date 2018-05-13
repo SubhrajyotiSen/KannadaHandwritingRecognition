@@ -1,0 +1,40 @@
+{% load static %}
+<!doctype html>
+<meta charset=utf-8>
+<title>Kannada test</title>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="{% static 'hwrapp/materialize.min.css' %}">
+<!-- Compiled and minified JavaScript -->
+<script src="{% static 'hwrapp/materialize.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'hwrapp/style.css' %}" />
+
+<script>
+    function redirect(){
+       window.location.href = "/hwrapp/results/{{image_id}}"
+    }
+    setTimeout(redirect, 2000);
+</script>
+<body>
+<center>
+	<h3><font color="white">Character Augmentation</font>
+	</h3>
+</center>
+<div class = "container white" style = 'margin-top:50px'  >
+	<div class = "row">
+		{% if imagelist %}
+			{% for image in imagelist %}
+				<div class = "col s6 m2" style = 'margin-top: 10px'>
+					<center>
+					<img src='/static/hwrapp/images/{{enddir}}/{{image}}' alt = '/static/hwrapp/images/{{enddir}}/{{image}}' style = 'width:auto; height: auto;'/>
+					<br>
+					</center>
+				</div>
+			{% endfor %}
+		{% else %}
+			<p>No output</p>
+		{% endif %}
+	</div>
+</div>
+</body>
+</html>

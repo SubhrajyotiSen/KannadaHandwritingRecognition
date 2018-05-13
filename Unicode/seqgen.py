@@ -190,6 +190,7 @@ def sequenceGen(input):
 						break
 				# print("mychars: ", mychars,"myotts: ",myotts)
 				sequence = addchar(sequence,mychars,myotts, input[sorted_input[k-1]])
+				print(sequence)
 				# print(sequence)
 				k = o
 				#print("k:", k, ",o:", o)
