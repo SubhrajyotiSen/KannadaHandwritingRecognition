@@ -74,7 +74,8 @@ def results(request, image_id):
     h=html.parser.HTMLParser()
     h.unescape(output)
     context = {
-        'output': output
+        'output': output,
+        'myobject': myobject
     }
     return HttpResponse(template.render(context, request))
     
