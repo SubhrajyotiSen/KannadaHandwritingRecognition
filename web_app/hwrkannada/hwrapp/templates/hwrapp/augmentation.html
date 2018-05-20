@@ -1,0 +1,47 @@
+{% load static %}
+<!doctype html>
+<meta charset=utf-8>
+<title>Kannada test</title>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="{% static 'hwrapp/materialize.min.css' %}">
+<!-- Compiled and minified JavaScript -->
+<script src="{% static 'hwrapp/materialize.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'hwrapp/style.css' %}" />
+
+<script type="text/javascript">
+document.onkeydown = function(e) {
+    switch (e.keyCode) {
+        case 37:
+            window.location.href = "/hwrapp/results/charsegments/{{image_id}}"
+            break;
+        case 39:
+            window.location.href = "/hwrapp/results/{{image_id}}"
+            break;
+    }
+};       
+</script>
+
+<body>
+<center>
+	<h3><font color="white">Character Augmentation</font>
+	</h3>
+</center>
+<div class = "container" style = 'margin-top:50px;background: rgba(255,255,255,0.35)'  >
+	<div class = "row">
+		{% if imagelist %}
+			{% for image in imagelist %}
+				<div class = "col s6 m2" style = 'margin-top: 10px'>
+					<center>
+					<img src='/static/hwrapp/images/{{enddir}}/{{image}}' alt = '/static/hwrapp/images/{{enddir}}/{{image}}' style = 'width:auto; height: auto;'/>
+					<br>
+					</center>
+				</div>
+			{% endfor %}
+		{% else %}
+			<p>No output</p>
+		{% endif %}
+	</div>
+</div>
+</body>
+</html>

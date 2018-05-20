@@ -1,0 +1,60 @@
+{% load static %}
+<!doctype html>
+<meta charset=utf-8>
+<title>Kannada test</title>
+
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="{% static 'hwrapp/materialize.min.css' %}">
+<!-- Compiled and minified JavaScript -->
+<script src="{% static 'hwrapp/materialize.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'hwrapp/style.css' %}" />
+<style>
+.img {
+    position: relative;
+    float: left;
+    width:  85px;
+    height: 85px;
+    background-position: 50% 50%;
+    background-repeat:   no-repeat;
+    background-size:     cover;
+}
+</style>
+
+<script type="text/javascript">
+document.onkeydown = function(e) {
+    switch (e.keyCode) {
+        case 37:
+            window.location.href = "/hwrapp/results/wordsegments/{{image_id}}"
+            break;
+        case 39:
+            window.location.href = "/hwrapp/results/augmentation/{{image_id}}"
+            break;
+    }
+};       
+</script>
+
+<body>
+<center>
+	<h3><font color="white">Character Segmentation</font>
+	</h3>
+</center>
+<div class = "container" style = 'margin-top:30px;background: rgba(0,0,0,0.80)'  >
+	<div class = "row" >
+		<br>
+
+		{% if imagelist %}
+			{% for image in imagelist %}
+				<div class = "img col s6 m2">
+					<center>
+					<img src='/static/hwrapp/images/{{enddir}}/{{image}}' alt = '/static/hwrapp/images/{{enddir}}/{{image}}'/>
+					<br>
+					</center>
+				</div>
+			{% endfor %}
+		{% else %}
+			<p>No output</p>
+		{% endif %}
+	</div>
+</div>
+</body>
+</html>
