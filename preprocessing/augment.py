@@ -14,6 +14,20 @@ import scipy
 import shutil
 import sys	
 
+"""
+	Make a copy to store segmented and augmented images seperately.
+	This helps to make displaying steps on web app easier
+"""
+def copy(src, dest):
+	# Check if subfolder already exists. If it doesn't, create it
+	if not os.path.exists(dest):
+		os.makedirs(dest)
+	src_files = os.listdir(src)
+	for file_name in src_files:
+		full_file_name = os.path.join(src, file_name)
+		if(os.path.isfile(full_file_name)):
+			shutil.copy(full_file_name, dest)
+
 def gaussianresize(image):
 	img = io.imread(image)
 	img = np.invert(img)
@@ -80,10 +94,11 @@ def remove(image):
 	ret,thresh2 = cv2.threshold(new_img,127,255,cv2.THRESH_BINARY_INV)
 	cv2.imwrite(image, thresh2)
 	
-def augment(rootdir):
-	flist = os.listdir(rootdir)
+def augment(rootdir, destdir):
+	copy(rootdir,destdir)
+	flist = os.listdir(destdir)
 	for i in range(0,len(flist)):
-		flist[i] = os.path.join(rootdir, flist[i])
+		flist[i] = os.path.join(destdir, flist[i])
 	Parallel(n_jobs = -1)(delayed(fixedsize)(n) for n in flist)			# Resizes all images to fixed size
 	Parallel(n_jobs = -1)(delayed(binerize)(n) for n in flist)			# Smoothing: first binerize to remove stray noise
 	Parallel(n_jobs = -1)(delayed(blur)(n) for n in flist)				# Smoothing: blur to smooth the pixelated edges
@@ -93,3 +108,4 @@ def augment(rootdir):
 	Parallel(n_jobs = -1)(delayed(padding)(n) for n in flist)			# Adding fixed padding to all images
 	Parallel(n_jobs = -1)(delayed(size208)(n) for n in flist)			# Resizing to redues line cuts 
 	Parallel(n_jobs = -1)(delayed(gaussianresize)(n) for n in flist)	# Resize to ML specification and adds gaussian blur
+
