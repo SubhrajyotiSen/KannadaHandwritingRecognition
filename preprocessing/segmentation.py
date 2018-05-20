@@ -8,8 +8,8 @@ from preprocessing.segment_word import segment_word
 from preprocessing.segment_character import segment_character
 
 def segment(file):
-	
-	directory = 'Segmented_' + os.path.splitext(ntpath.basename(file))[0] # Generate directory name to store segmented images
+	rootdir = 'web_app/hwrkannada/hwrapp/static/hwrapp/images/Processed_' + os.path.splitext(ntpath.basename(file))[0]
+	directory = rootdir + '/Segmented_' + os.path.splitext(ntpath.basename(file))[0] # Generate directory name to store segmented images
 
 	# Check if subfolder already exists. If it doesn't, create it
 	if not os.path.exists(directory):
@@ -19,15 +19,15 @@ def segment(file):
 	image = cv2.imread(file)
 
 	# Get sentences as separate images
-	sentences = segment_sentence(image)
+	sentences = segment_sentence(image, directory)
 
 	for i in range(0,len(sentences)):
 		# Get words as separate images
-		words = segment_word(sentences[i])
+		words = segment_word(sentences[i], directory, i)
 
 		for j in range(0,len(words)):
 			# Get characters as separate images
-			characters , ottaksharas = segment_character(words[j])
+			characters , ottaksharas = segment_character(words[j], directory)
 
 			""" 
 					Generate image name based on position in original image

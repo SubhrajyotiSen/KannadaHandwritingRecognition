@@ -33,7 +33,7 @@ def sort_contours(cnts, method="left-to-right"):
 	# return the list of sorted contours and bounding boxes
 	return (cnts, boundingBoxes)
 
-def segment_character(image):
+def segment_character(image, directory):
 
 	row, col = image.shape
 
