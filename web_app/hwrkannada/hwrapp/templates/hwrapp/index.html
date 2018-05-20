@@ -11,21 +11,21 @@
 
 <body>
 	<center><h3><font color="white"> Recognition of Kannada Handwritten Documents</font></h3></center>
-	<div class="container z-depth-2 white" style = 'margin-bottom:50px' > 
+	<div class="container z-depth-2" style = 'margin-bottom:50px;background: rgba(255,255,255,0.35)' > 
 
 	{% if latest_image_list %}
 	
 		<div class="row">
 			{% for image in latest_image_list %}
 			<div class="col s12 m4" style = 'margin-top:50px'>
-				<div class="card">
+				<div class="card white">
 					<center>
 					<div class="card-image" style = 'width:200px; height: 200px;'>
 				  		<img src="{{image.image_url.url}}" alt="{{image.image_url.url}}"  
 				  		style = 'width:100%;vertical-align: middle; height: 100%'>
 					</div>
 					</center>
-					<div class="card-action purple darken-4">
+					<div class="card-action brown darken-4">
 						<center><a href="details/{{image.image_id}}">View Image</a></center>
 					</div>
 				</div>

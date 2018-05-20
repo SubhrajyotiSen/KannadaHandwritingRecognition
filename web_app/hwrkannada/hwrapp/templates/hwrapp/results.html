@@ -9,21 +9,42 @@
 <script src="{% static 'hwrapp/materialize.min.js' %}"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'hwrapp/style.css' %}" />
 
-
 <style>
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskannada.css);
 body { font-family: "Noto Sans Kannada", sans-serif; font-size: 19.0px; line-height: 1.11em; }
 </style>
 
+<script type="text/javascript">
+document.onkeydown = function(e) {
+    switch (e.keyCode) {
+    	//left
+        case 37:
+            window.location.href = "/hwrapp/results/augmentation/{{image_id}}"
+            break;
+        //up
+        case 38:
+            window.location.href = "/hwrapp"
+            break;
+    }
+};  
+</script>
+
 <body>
 	<br>
 	<br>
 	<br>
-	<div class = "container z-depth-2 white" style = 'margin-bottom:50px' >
+	<div class = "container z-depth-2 grey lighten-2" style = 'margin-bottom:50px' >
 		<div class = "row">
 			<center>
-			<div class = "col s12 m8 offset-m2 white" style = 'height:auto'>
-				<center>
+				<div class = "col s12 m6  " style = 'height:auto;margin-top:8px'>
+					<center>
+						<div class = "col s12">
+							<img id="image" src="{{myobject.image_url.url}}" alt="{{myobject.image_url.url}}" style = 'width:100%'/>
+						</div>
+					</center>
+				</div>
+				<div class = "col s12 m6" style = 'height:auto'>
+					<center>
 					<br>
 					<br>
 					{% if output %}

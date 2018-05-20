@@ -183,8 +183,10 @@ def results(request, image_id):
     # The output is parsed and results page is rendered to show the output
     h=html.parser.HTMLParser()
     h.unescape(output)
+    myobject = DocumentImage.objects.get(pk=image_id)
     context = {
         'image_id': image_id,
+        'myobject': myobject,
         'output': output
     }
     return HttpResponse(template.render(context, request))
