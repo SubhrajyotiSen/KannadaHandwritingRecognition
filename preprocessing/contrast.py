@@ -6,7 +6,6 @@ import scipy.misc
 from PIL import Image
 
 
-# TODO: loop over all images
 # get name of image file
 image = sys.argv[1]
 

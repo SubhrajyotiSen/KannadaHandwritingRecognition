@@ -2,7 +2,6 @@ import os
 import sys
 import cv2
 
-# TODO: loop over all images
 image = sys.argv[1]
 filename = filename = os.path.splitext(image)[0]
 

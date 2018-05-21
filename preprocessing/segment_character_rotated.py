@@ -23,7 +23,6 @@ def getSubImage(rect, src):
 
 
 if __name__ == '__main__':
-    # TODO: loop over all images
     imageName = sys.argv[1]
     # Creating new folder to save the preprocessed images
     fileName = filename = os.path.splitext(imageName)[0]
