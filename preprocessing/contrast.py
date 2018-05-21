@@ -1,5 +1,5 @@
 import os
-import sys	
+import sys
 import numpy
 import scipy
 import scipy.misc
@@ -37,4 +37,3 @@ X = s * X / max(contrast, epsilon)
 
 # save the image
 scipy.misc.imsave(filename + '_contrast.png', X)
-

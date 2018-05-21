@@ -1,5 +1,5 @@
 import os
-import sys	
+import sys
 import cv2
 
 # TODO: loop over all images
@@ -10,8 +10,7 @@ filename = filename = os.path.splitext(image)[0]
 img = cv2.imread(image)
 
 # denoise image
-dst = cv2.fastNlMeansDenoisingColored(img,None,10,10,7,21)
+dst = cv2.fastNlMeansDenoisingColored(img, None, 10, 10, 7, 21)
 
 # save image
 cv2.imwrite(filename + '_denoise.png', dst)
-

@@ -21,6 +21,6 @@ from django.conf import settings
 urlpatterns = [
     path('hwrapp/', include('hwrapp.urls')),
     path('admin/', admin.site.urls),
-] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Add static url pattern for loading static images in html files.

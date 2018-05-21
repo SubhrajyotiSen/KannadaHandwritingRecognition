@@ -9,7 +9,9 @@ from .models import DocumentImage
 	Call in html file looks like {{form.as_p}}
 	
 """
+
+
 class DocumentForm(forms.ModelForm):
-	class Meta:
-		model = DocumentImage
-		fields = ('image_url', )
+    class Meta:
+        model = DocumentImage
+        fields = ('image_url', )

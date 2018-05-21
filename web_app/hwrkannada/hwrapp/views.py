@@ -24,6 +24,8 @@ enddir = ""
     Provides option to upload image, the transition between pages(from index to model_form_upload) 
     happens in html file through <a href> tag
 """
+
+
 def index(request):
     if request.method == 'POST':
         return redirect('/hwrapp/upload/')
@@ -35,28 +37,34 @@ def index(request):
     }
     return HttpResponse(template.render(context, request))
 
+
 """
     Shows the selected image.
     Provides a button to proceed to analysis of image
 """
+
+
 def details(request, image_id):
     if request.method == 'POST':
         return redirect('/hwrapp/results/linesegments/' + str(image_id), {
-                    'image_id' : image_id
-            })
+            'image_id': image_id
+        })
 
     template = loader.get_template('hwrapp/details.html')
     myobject = DocumentImage.objects.get(pk=image_id)
-    print (myobject)
+    print(myobject)
     context = {
-        'myobject' : myobject,
-        'myobjectid' : image_id
+        'myobject': myobject,
+        'myobjectid': image_id
     }
     return HttpResponse(template.render(context, request))
+
 
 """
     A form to upload image from system.
 """
+
+
 def model_form_upload(request):
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
@@ -65,9 +73,9 @@ def model_form_upload(request):
             latest_image = DocumentImage.objects.order_by('-pub_date')[:1]
             for image in latest_image:
                 print(image.image_id)
-                # Use "/" before the path so that the given new path isnt concatenated with present path 
+                # Use "/" before the path so that the given new path isnt concatenated with present path
                 return redirect('/hwrapp/details/' + str(image.image_id), {
-                    'image_id' : image.image_id
+                    'image_id': image.image_id
                 })
 
     # If form data wasnt valid, display empty form again to the user.
@@ -77,9 +85,12 @@ def model_form_upload(request):
         'form': form
     })
 
+
 """
     Call for segmentation. Show line segmentation
-"""    
+"""
+
+
 def linesegments(request, image_id):
     global rootdir, segdir, enddir
     template = loader.get_template('hwrapp/linesegments.html')
@@ -89,14 +100,15 @@ def linesegments(request, image_id):
     """
          Call script here for segmentation
     """
-    image_path = os.path.join('web_app/hwrkannada/hwrkannada',image_path[1:len(image_path)])
-    
+    image_path = os.path.join(
+        'web_app/hwrkannada/hwrkannada', image_path[1:len(image_path)])
+
     path = os.path.join(os.path.dirname(__file__), '../../../')
     os.chdir(path)
     sys.path.insert(0, os.getcwd())
     from main import segmentation_call
 
-    rootdir,segdir = segmentation_call(image_path)
+    rootdir, segdir = segmentation_call(image_path)
     enddir = segdir.split('/images/')[1]
     imagelist = os.listdir(segdir+"/lines")
     imagelist.sort()
@@ -107,9 +119,12 @@ def linesegments(request, image_id):
     }
     return HttpResponse(template.render(context, request))
 
+
 """
     Show word segmentation
 """
+
+
 def wordsegments(request, image_id):
     global segdir, enddir
     template = loader.get_template('hwrapp/wordsegments.html')
@@ -122,9 +137,12 @@ def wordsegments(request, image_id):
     }
     return HttpResponse(template.render(context, request))
 
+
 """
     Character and ottakshara segmentation
 """
+
+
 def charsegments(request, image_id):
     global segdir, enddir
     template = loader.get_template('hwrapp/charsegments.html')
@@ -140,11 +158,13 @@ def charsegments(request, image_id):
         'imagelist': imagelist
     }
     return HttpResponse(template.render(context, request))
- 
+
 
 """
     Show Augmented characters and ottaksharas
 """
+
+
 def augmentation(request, image_id):
     global rootdir, segdir, augdir
     template = loader.get_template('hwrapp/augmentation.html')
@@ -154,8 +174,9 @@ def augmentation(request, image_id):
     """
          Call script here for segmentation
     """
-    image_path = os.path.join('web_app/hwrkannada/hwrkannada',image_path[1:len(image_path)])
-    
+    image_path = os.path.join(
+        'web_app/hwrkannada/hwrkannada', image_path[1:len(image_path)])
+
     path = os.path.join(os.path.dirname(__file__), '../../../')
     os.chdir(path)
     sys.path.insert(0, os.getcwd())
@@ -172,9 +193,12 @@ def augmentation(request, image_id):
     }
     return HttpResponse(template.render(context, request))
 
+
 """
     Result page. Needs to be updated to call our HWR module to analyse image
 """
+
+
 def results(request, image_id):
     template = loader.get_template('hwrapp/results.html')
 
@@ -182,7 +206,7 @@ def results(request, image_id):
 
     output = prediction_call(augdir)
     # The output is parsed and results page is rendered to show the output
-    h=html.parser.HTMLParser()
+    h = html.parser.HTMLParser()
     h.unescape(output)
     myobject = DocumentImage.objects.get(pk=image_id)
     context = {
@@ -191,7 +215,8 @@ def results(request, image_id):
         'output': output
     }
     return HttpResponse(template.render(context, request))
-    
+
+
 def delete_image(request, image_id):
     image = DocumentImage.objects.get(pk=image_id).delete()
     return redirect('/hwrapp/')

@@ -3,4 +3,3 @@ from .models import DocumentImage
 
 # Register your models here.
 admin.site.register(DocumentImage)
-

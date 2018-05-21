@@ -28,6 +28,8 @@ CLASS_N = 0
 c_accuracy_set = []
 
 # Split the images into cells based on SZ which is 52*52
+
+
 def split2d(img, cell_size, flatten=True):
     h, w = img.shape[:2]
     sx, sy = cell_size
@@ -38,6 +40,8 @@ def split2d(img, cell_size, flatten=True):
     return cells
 
 # Load the image data, split and label them
+
+
 def load_digits(fn):
     digits_img = cv2.imread(fn, 0)
     digits = split2d(digits_img, (SZ, SZ))
@@ -45,17 +49,22 @@ def load_digits(fn):
     return digits, labels
 
 # deskew image
+
+
 def deskew(img):
     m = cv2.moments(img)
     if abs(m['mu02']) < 1e-2:
         return img.copy()
     skew = m['mu11']/m['mu02']
     M = np.float32([[1, skew, -0.5*SZ*skew], [0, 1, 0]])
-    img = cv2.warpAffine(img, M, (SZ, SZ), flags=cv2.WARP_INVERSE_MAP | cv2.INTER_LINEAR)
+    img = cv2.warpAffine(
+        img, M, (SZ, SZ), flags=cv2.WARP_INVERSE_MAP | cv2.INTER_LINEAR)
     return img
 
 # SVM initialisation
 # C=12.5, gamma=0.001
+
+
 def svmInit(C, gamma):
     model = cv2.ml.SVM_create()
     model.setGamma(gamma)
@@ -64,26 +73,32 @@ def svmInit(C, gamma):
     model.setType(cv2.ml.SVM_C_SVC)
     return model
 
+
 def svmTrain(model, samples, responses):
     model.train(samples, cv2.ml.ROW_SAMPLE, responses)
     return model
 
+
 def svmPredict(model, samples):
     return model.predict(samples)[1].ravel()
 
-# Evaluate trained model. Print Accuracy obtained during validation 
+# Evaluate trained model. Print Accuracy obtained during validation
+
+
 def svmEvaluate(model, digits, samples, labels):
     predictions = svmPredict(model, samples)
     accuracy = (labels == predictions).mean()
     print('Percentage Accuracy: %.2f %%' % (accuracy*100))
 
-# Histogram of Oriented Gradients is used as feature set. 
+# Histogram of Oriented Gradients is used as feature set.
 # Below provides initialisation of HOG
-def get_hog() : 
-    winSize = (52,52)
-    blockSize = (8,8)
-    blockStride = (4,4)
-    cellSize = (8,8)
+
+
+def get_hog():
+    winSize = (52, 52)
+    blockSize = (8, 8)
+    blockStride = (4, 4)
+    cellSize = (8, 8)
     nbins = 9
     derivAperture = 1
     winSigma = -1.
@@ -93,14 +108,15 @@ def get_hog() :
     nlevels = 64
     signedGradient = True
 
-    hog = cv2.HOGDescriptor(winSize,blockSize,blockStride,cellSize,nbins,derivAperture,winSigma,histogramNormType,L2HysThreshold,gammaCorrection,nlevels, signedGradient)
+    hog = cv2.HOGDescriptor(winSize, blockSize, blockStride, cellSize, nbins, derivAperture,
+                            winSigma, histogramNormType, L2HysThreshold, gammaCorrection, nlevels, signedGradient)
 
     return hog
-    affine_flags = cv2.WARP_INVERSE_MAP|cv2.INTER_LINEAR
+    affine_flags = cv2.WARP_INVERSE_MAP | cv2.INTER_LINEAR
 
-  
+
 def svm_train(imageName, no_of_classes, modelsave):
-    
+
     global CLASS_N
     CLASS_N = no_of_classes
     digits, labels = load_digits(imageName)
@@ -109,7 +125,7 @@ def svm_train(imageName, no_of_classes, modelsave):
     rand = np.random.RandomState(10)
     shuffle = rand.permutation(len(digits))
     digits, labels = digits[shuffle], labels[shuffle]
-    
+
     # Deskew images
     digits_deskewed = list(map(deskew, digits))
 
@@ -124,12 +140,12 @@ def svm_train(imageName, no_of_classes, modelsave):
     print(hog_descriptors.shape)
 
     # Spliting data into training (90%) and test set (10%)
-    train_n=int(0.9*len(hog_descriptors))
+    train_n = int(0.9*len(hog_descriptors))
     digits_train, digits_test = np.split(digits_deskewed, [train_n])
-    hog_descriptors_train, hog_descriptors_test = np.split(hog_descriptors, [train_n])
+    hog_descriptors_train, hog_descriptors_test = np.split(
+        hog_descriptors, [train_n])
     labels_train, labels_test = np.split(labels, [train_n])
 
-    
     # Used to generate SVM Learning curve graph
     """for m in range(1,15,3):
         model = svmInit(m,0.001)
@@ -139,7 +155,7 @@ def svm_train(imageName, no_of_classes, modelsave):
         print(m)"""
 
     # Train SVM Model
-    model = svmInit(12.5,0.001)
+    model = svmInit(12.5, 0.001)
     svmTrain(model, hog_descriptors_train, labels_train)
     # Evaluate model
     vis = svmEvaluate(model, digits_test, hog_descriptors_test, labels_test)
