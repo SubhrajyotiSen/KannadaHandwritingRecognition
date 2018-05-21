@@ -14,6 +14,7 @@ import html
 import os
 import sys
 
+
 rootdir = ""
 segdir = ""
 augdir = ""
@@ -191,4 +192,6 @@ def results(request, image_id):
     }
     return HttpResponse(template.render(context, request))
     
-
+def delete_image(request, image_id):
+    image = DocumentImage.objects.get(pk=image_id).delete()
+    return redirect('/hwrapp/')

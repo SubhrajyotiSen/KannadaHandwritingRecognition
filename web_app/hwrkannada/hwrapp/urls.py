@@ -18,5 +18,7 @@ urlpatterns = [
 	# /hwrapp/results/augmentation/image_id
 	path('results/augmentation/<int:image_id>', views.augmentation, name='augmentation'),
 	# /hwrapp/upload
-	path('upload/',views.model_form_upload, name = 'model_form_upload')
+	path('upload/',views.model_form_upload, name = 'model_form_upload'),
+	# /hwrapp/delete_image/image_id
+	path('delete_image/<int:image_id>',views.delete_image, name = 'delete_image')
 ]

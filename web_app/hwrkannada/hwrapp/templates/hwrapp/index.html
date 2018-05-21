@@ -6,7 +6,6 @@
 <!-- Compiled and minified JavaScript -->
 <script src="{% static 'hwrapp/materialize.min.js' %}"></script>
 <link rel="stylesheet" type="text/css" href="{% static 'hwrapp/style.css' %}" />
-
 </head>
 
 <body>
@@ -19,6 +18,11 @@
 			{% for image in latest_image_list %}
 			<div class="col s12 m4" style = 'margin-top:50px'>
 				<div class="card white">
+					<a href="delete_image/{{image.image_id}}">
+						<div class = "right">
+						<img src = "{% static 'hwrapp/images/deleteimage.png' %}" alt="delete">
+					</div>
+					</a>
 					<center>
 					<div class="card-image" style = 'width:200px; height: 200px;'>
 				  		<img src="{{image.image_url.url}}" alt="{{image.image_url.url}}"  
