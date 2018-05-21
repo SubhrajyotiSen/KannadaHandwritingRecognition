@@ -2,3 +2,7 @@ body {
     background: white url("images/bodybg.jpg");
     
 }
+
+#result {
+	font-size:35px;
+}

@@ -43,7 +43,7 @@ document.onkeydown = function(e) {
 						</div>
 					</center>
 				</div>
-				<div class = "col s12 m6" style = 'height:auto'>
+				<div class = "col s12 m6" style = 'height:auto' id = "result">
 					<center>
 					<br>
 					<br>
@@ -51,6 +51,8 @@ document.onkeydown = function(e) {
 						{% for line in output %}
 	
 							{{line}}
+							<br>
+							<br>
 							<br>
 
 						{% endfor %}
