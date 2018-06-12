@@ -11,22 +11,39 @@
 
 <style>
 @import url(http://fonts.googleapis.com/earlyaccess/notosanskannada.css);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 body { font-family: "Noto Sans Kannada", sans-serif; font-size: 19.0px; line-height: 1.11em; }
 </style>
 
 <script type="text/javascript">
-document.onkeydown = function(e) {
-    switch (e.keyCode) {
+
+	function downloadText(){
+		var content = document.getElementById("kannada-text").textContent;
+		content = content.replace(/(\r\n|\n|\r)/gm, "");
+		content = content.replace(/\t/g, ' ').replace(/ {2,}/g, '\n');
+		console.log(content);
+		var link = document.createElement('a');
+		mimeType = 'text/plain';
+		filename = 'kannada-text.txt'
+		link.setAttribute('download', filename);
+		link.setAttribute('href', 'data:' + mimeType  +  ';charset=utf-8,' + encodeURIComponent(content));
+		link.click(); 
+	} 
+	document.onkeydown = function(e) {
+		switch (e.keyCode) {
     	//left
-        case 37:
-            window.location.href = "/hwrapp/results/augmentation/{{image_id}}"
-            break;
+    	case 37:
+    	window.location.href = "/hwrapp/results/augmentation/{{image_id}}"
+    	break;
         //up
         case 38:
-            window.location.href = "/hwrapp"
-            break;
+        window.location.href = "/hwrapp"
+        break;
     }
+
 };  
+
+
 </script>
 
 <body>
@@ -45,26 +62,28 @@ document.onkeydown = function(e) {
 				</div>
 				<div class = "col s12 m6" style = 'height:auto' id = "result">
 					<center>
-					<br>
-					<br>
-					{% if output %}
-						{% for line in output %}
-	
+						<div id="kannada-text">
+							<br>
+							<br>
+							{% if output %}
+							{% for line in output %}
+
 							{{line}}
 							<br>
 							<br>
 
-						{% endfor %}
-    
-					{% else %}
-						<p>No output</p>
-					{% endif %}
-					<br>
-				</center>
-					
-			</div>
+							{% endfor %}
+
+							{% else %}
+							<p>No output</p>
+							{% endif %}
+							<br>
+						</div>
+						<a class="waves-effect waves-light btn" onclick="downloadText()" style="margin-bottom: 10px"><i class="material-icons left">file_download</i>Download Text</a>
+					</center>
+				</div>
 			</center>
 		</div>
-	</div>	
+	</div>
 </body> 
 </html>
