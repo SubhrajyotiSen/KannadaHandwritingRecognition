@@ -74,7 +74,7 @@ A web app provides the user interface. A handwritten document is given as input 
 
   
 
-The dataset used is the Chars74K dataset. It consists of a collection of images that belong to 657+ classes. Each class consists of 25 handwritten characters. Since a Deep Learning approach has also been used in this paper, the dataset needed to be expanded. This was done by using various augmentation techniques.
+The dataset used is the Chars74K[http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/] dataset. It consists of a collection of images that belong to 657+ classes. Each class consists of 25 handwritten characters. Since a Deep Learning approach has also been used in this paper, the dataset needed to be expanded. This was done by using various augmentation techniques.
 
   
 
