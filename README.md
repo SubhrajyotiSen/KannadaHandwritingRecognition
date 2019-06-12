@@ -153,6 +153,6 @@ Check  ` web_app/hwrkannada\how_to_run.txt`
 
 ### AUTHORS
 - Subhrajyoti Sen
-- Shreya V prabhu
+- Shreya V Prabhu
 - Steve Jerold
 - Pradeep JS
