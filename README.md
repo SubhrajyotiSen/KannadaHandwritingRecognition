@@ -1,4 +1,5 @@
-#### The paper describing this approach has been presented at 2018 3rd IEEE INTERNATIONAL CONFERENCE ON RECENT TRENDS ON ELECTRONICS, INFORMATION & COMMUNICATION TECHNOLOGY and is awaiting publication
+#### The paper describing this approach has been presented at 2018 3rd IEEE INTERNATIONAL CONFERENCE ON RECENT TRENDS ON ELECTRONICS, INFORMATION & COMMUNICATION TECHNOLOGY. 
+Link to Publication - https://ieeexplore.ieee.org/document/9012531
 
 ## INSTALLATION
 
