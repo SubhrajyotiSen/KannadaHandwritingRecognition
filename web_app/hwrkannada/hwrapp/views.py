@@ -1,7 +1,6 @@
 from django.http import HttpResponse
 from .models import DocumentImage
 from django.template import loader
-from .models import DocumentImage
 from .forms import DocumentForm
 from django.shortcuts import render_to_response
 from django.template import RequestContext
