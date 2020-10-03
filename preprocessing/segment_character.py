@@ -1,8 +1,4 @@
 import cv2
-import numpy as np
-import os
-import sys
-import ntpath
 
 """ To sort the contours in 4 ways
 		left-to-right

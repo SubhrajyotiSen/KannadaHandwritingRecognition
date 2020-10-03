@@ -2,12 +2,8 @@ from django.http import HttpResponse
 from .models import DocumentImage
 from django.template import loader
 from .forms import DocumentForm
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.shortcuts import redirect
-import subprocess
 import html
 # Import module here
 import os

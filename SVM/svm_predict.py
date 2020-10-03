@@ -14,10 +14,8 @@
 
 
 import cv2
-import glob
 import numpy as np
 import os
-import sys
 
 SZ = 52
 CLASS_N = 0

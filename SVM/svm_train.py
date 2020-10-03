@@ -15,11 +15,8 @@
 
 #!/usr/bin/env python
 import cv2
-import glob
 import numpy as np
-import os
 import matplotlib.pyplot as plt
-import sys
 
 # Size of each image
 SZ = 52

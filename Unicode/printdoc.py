@@ -1,5 +1,3 @@
-import sys
-import os
 import Unicode.unicode_dict as ud
 
 # load the unicode dictionaries

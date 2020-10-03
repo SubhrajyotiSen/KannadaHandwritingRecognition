@@ -6,7 +6,6 @@ import os
 # Blob_log is used for blob detection in an image.
 from skimage.feature import blob_log
 from skimage.color import rgb2gray
-from skimage import data
 from PIL import Image, ImageDraw
 
 j = 0  # Count for image name.
