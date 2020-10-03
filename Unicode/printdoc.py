@@ -66,7 +66,7 @@ def decode_word(word):
                             mychar = newchar
                             added = True
                     # Add ottakshara normally
-                if(j != len(cons)-1 and added == False):
+                if(j != len(cons)-1 and added is False):
                     mychar += myvowels[0]
 
             # Check if vowels exist and add them
