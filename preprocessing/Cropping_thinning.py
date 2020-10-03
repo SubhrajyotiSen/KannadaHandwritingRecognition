@@ -9,7 +9,7 @@ import time 	# This module provides various time-related functions.
 # The glob module finds all the pathnames matching a specified pattern according to the rules used by the Unix shell.
 import glob
 # The Python Imaging Library (PIL) adds image processing capabilities to your Python interpreter.
-from PIL import Image, ImageChops, ImageOps
+from PIL import Image, ImageChops
 # scikit-image is a collection of algorithms for image processing.
 from skimage import color
 from skimage.morphology import skeletonize_3d

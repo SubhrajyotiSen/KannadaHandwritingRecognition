@@ -5,8 +5,6 @@ import cv2 as cv
 # for displaying the whole numpy array
 np.set_printoptions(threshold=np.nan)
 
-from matplotlib import pyplot as plt
-
 img = cv.imread(r'final.jpg', 0)
 #gray = cv.cvtColor(img,cv.COLOR_BGR2GRAY)
 # Now we split the image to 50x10 cells, each 52x52 size

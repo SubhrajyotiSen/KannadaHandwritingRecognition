@@ -1,7 +1,6 @@
 from skimage.morphology import skeletonize_3d
 from skimage import color
 import cv2
-from PIL import Image
 from skimage.util import invert
 from scipy.misc import toimage
 

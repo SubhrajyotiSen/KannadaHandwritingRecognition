@@ -2,16 +2,15 @@ from joblib import Parallel, delayed
 from PIL import Image, ImageChops, ImageOps, ImageFilter
 from scipy import misc
 from scipy.misc import toimage
-from skimage import color, io, filters, transform
+from skimage import io, filters, transform
 from skimage.morphology import skeletonize_3d
-from skimage.util import invert, random_noise
+from skimage.util import random_noise
 import cv2
 import glob
 import numpy as np
 import os
 import PIL
 import scipy
-import shutil
 import sys
 import time
 

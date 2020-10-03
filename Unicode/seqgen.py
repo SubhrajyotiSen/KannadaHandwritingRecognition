@@ -1,5 +1,3 @@
-import sys
-import os
 import Unicode.seqdictionary as sd
 
 """

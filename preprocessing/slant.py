@@ -1,10 +1,6 @@
 import numpy as np
 import cv2
 import math
-from skimage import color
-from skimage.util import invert
-from PIL import Image
-from scipy.misc import toimage
 from heapq import nlargest
 from matplotlib import pyplot as plt
 

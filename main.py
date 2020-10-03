@@ -1,9 +1,5 @@
-import sys
 import os
 import ntpath
-import cv2
-
-from preprocessing.segment_sentence import segment_sentence
 from preprocessing.segmentation import segment
 from preprocessing.augment import augment
 

@@ -1,9 +1,6 @@
 import os
-import sys
 import cv2
 import numpy as np
-import ntpath
-from PIL import Image
 
 
 def segment_word(image, directory, count):

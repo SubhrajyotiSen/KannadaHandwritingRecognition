@@ -12,7 +12,7 @@ from keras.layers.convolutional import Conv2D
 from keras.layers.convolutional import MaxPooling2D
 from keras.utils import np_utils
 from keras.callbacks import ModelCheckpoint
-from keras.optimizers import SGD, Adagrad, Adadelta, RMSprop, Adam
+from keras.optimizers import Adam
 from keras.layers import LRN2D
 from keras import backend as K
 import matplotlib.pyplot as plt
