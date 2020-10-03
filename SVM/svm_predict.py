@@ -64,14 +64,12 @@ def svmPredict(model, samples):
 def match():
     global matchcount
     matchcount = matchcount + 1
-    return
 # Increase mismatchcount if mismatch was found
 
 
 def mismatch():
     global mismatchcount
     mismatchcount = mismatchcount + 1
-    return
 
 
 def testmyModel(test_path, no_of_classes, modelsave):
