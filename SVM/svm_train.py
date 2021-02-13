@@ -14,6 +14,8 @@
     example -
                 svm_train("test.jpg", 10, "digits.dat")
 
+    UNCOMMENT THE FUNCTION CALL AT THE END OF THE SCRIPT AS PER USECASE 
+
 """
 
 
