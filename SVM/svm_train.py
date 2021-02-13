@@ -1,13 +1,17 @@
 """
     TO EXECUTE SCRIPT
 
-    svm_train("train_image", N, file)
+    svm_train("train_image", no_of_classes, trained_model_file)
 
-    train_image - The training image having train dataset
-    N - Number of classes present 
-    file - File to store the model trained. The file type should be ".dat"
+    train_image - Mnist image with all the characters. Size of each character in image is 52x52 pixels
+    no_of_classes - Number of classes present
+        1. 34 if you are training with ottaksharas
+        2. 52 for letters
+        3. 10 for numbers
+    trained_model_file - The trained model that can be saved for testing accuracy and predictions. This generated dat file is to be fed to prediction script.
+           The file type should be ".dat"
 
-    example - 
+    example -
                 svm_train("test.jpg", 10, "digits.dat")
 
 """
@@ -159,3 +163,6 @@ def svm_train(imageName, no_of_classes, modelsave):
     # Save model
     model.save(modelsave)
     cv2.destroyAllWindows()
+
+# TODO: Uncomment the function call below while running script
+# svm_train(train_image, no_of_classes, trained_model_file)
