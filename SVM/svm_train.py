@@ -14,7 +14,13 @@
     example -
                 svm_train("test.jpg", 10, "digits.dat")
 
-    UNCOMMENT THE FUNCTION CALL AT THE END OF THE SCRIPT AS PER USECASE 
+    UNCOMMENT THE FUNCTION CALL AT THE END OF THE SCRIPT AS PER USECASE
+
+    Once uncommented, run script using following command -
+
+    - python3 svm_train.py
+
+    Important - You need python 3.x to run the script
 
 """
 
