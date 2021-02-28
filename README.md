@@ -22,7 +22,9 @@ Keras
 Pillow
 ```
 We also made use of a LRN2D layer which was removed from the keras source. It needs to be manually included.
-Paste the contents of `keras_addition.txt` in `/usr/local/lib/python3.5/dist-packages/keras/layers/normalization.py`. The file path may vary depending on your python version.
+-   Paste the contents of `keras_addition.txt` in `/usr/local/lib/python3.5/dist-packages/keras/layers/normalization.py`. 
+-   Add `from .normalization import LRN2D` right under the import `from .normalization import BatchNormalization` in `/usr/local/lib/python3.5/dist-packages/keras/layers/__init__.py `. 
+The file path may vary depending on your python version.
   
 ## KANNADA HANDWRITING RECOGNIZER
 
