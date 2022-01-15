@@ -1,7 +1,7 @@
 scikit_image==0.14.2
 numpy
 opencv_contrib_python==3.4.2.17
-Django==2.0.10
+Django==2.2.24
 joblib==0.12.1
 scipy==1.1.0
 matplotlib==2.2.2
