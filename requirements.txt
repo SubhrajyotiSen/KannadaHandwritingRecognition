@@ -8,7 +8,7 @@ matplotlib==2.2.2
 Keras==2.2.5
 Pillow==6.2.2
 scikit_learn==0.19.2
-tensorflow==1.14.0
+tensorflow==2.6.4
 h5py<3.0.0
 
 
